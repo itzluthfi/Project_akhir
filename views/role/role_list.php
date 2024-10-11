@@ -1,3 +1,6 @@
+<?php require_once "/laragon/www/project_akhir/init.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +17,8 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-    <?php include_once "/laragon/www/project_akhir/views/includes/navbar.php"; ?>
+
+    <?php include_once '/laragon/www/project_akhir/views/includes/navbar.php'; ?>
 
     <!-- Main container -->
     <div class="flex">

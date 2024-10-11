@@ -1,4 +1,4 @@
-<?php require_once "/laragon/www/projectOop/init.php" ?>
+<?php require_once "/laragon/www/project_akhir/init.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
