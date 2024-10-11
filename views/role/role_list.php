@@ -1,6 +1,3 @@
-<?php 
-    require_once "/laragon/www/projectOop/init.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Role</title>
-    <script src="../../public/fontawesome.js"></script>
-    <script src="../../public/tw.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
 </head>
@@ -17,12 +14,13 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-    <?php include_once '../includes/navbar.php'; ?>
+    <?php include_once "/laragon/www/project_akhir/views/includes/navbar.php"; ?>
 
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include_once '../includes/sidebar.php'; ?>
+        <?php include_once "/laragon/www/project_akhir/views/includes/sidebar.php"; ?>
+
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
