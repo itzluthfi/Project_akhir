@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
                 case 'update':
                     $role_id = $_POST['role_id'];
+                    print_r($role_id);
                     $role_name = $_POST['role_name'];
                     $role_description = $_POST['role_description'];
                     $role_status = $_POST['role_status'];
@@ -53,47 +54,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             }
             break;
 
-        // Example for another module, e.g., user
-        case 'user':
-            // Handle user module actions
-            switch ($action) {
-                case 'add':
-                    $username = $_POST['username'];
-                    $email = $_POST['email'];
-                    $password = $_POST['password'];
-                    $model->addUser($username, $email, $password);
-                    $message = "User added successfully!";
-                    break;
+        // // Example for another module, e.g., user
+        // case 'user':
+        //     // Handle user module actions
+        //     switch ($action) {
+        //         case 'add':
+        //             $username = $_POST['username'];
+        //             $email = $_POST['email'];
+        //             $password = $_POST['password'];
+        //             $model->addUser($username, $email, $password);
+        //             $message = "User added successfully!";
+        //             break;
 
-                case 'update':
-                    $user_id = $_POST['user_id'];
-                    $username = $_POST['username'];
-                    $email = $_POST['email'];
-                    if ($model->updateUser($user_id, $username, $email)) {
-                        $message = "User updated successfully!";
-                    } else {
-                        $message = "Failed to update user.";
-                    }
-                    break;
+        //         case 'update':
+        //             $user_id = $_POST['user_id'];
+        //             $username = $_POST['username'];
+        //             $email = $_POST['email'];
+        //             if ($model->updateUser($user_id, $username, $email)) {
+        //                 $message = "User updated successfully!";
+        //             } else {
+        //                 $message = "Failed to update user.";
+        //             }
+        //             break;
 
-                case 'delete':
-                    if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
-                        if ($model->deleteUser($id)) {
-                            $message = "User deleted successfully!";
-                        } else {
-                            $message = "Failed to delete user.";
-                        }
-                    } else {
-                        $message = "User ID not provided.";
-                    }
-                    break;
+        //         case 'delete':
+        //             if (isset($_GET['id'])) {
+        //                 $id = $_GET['id'];
+        //                 if ($model->deleteUser($id)) {
+        //                     $message = "User deleted successfully!";
+        //                 } else {
+        //                     $message = "Failed to delete user.";
+        //                 }
+        //             } else {
+        //                 $message = "User ID not provided.";
+        //             }
+        //             break;
 
-                default:
-                    $message = "Action not recognized for user.";
-                    break;
-            }
-            break;
+        //         default:
+        //             $message = "Action not recognized for user.";
+        //             break;
+        //     }
+        //     break;
 
         // Default case when no module is recognized
         default:
