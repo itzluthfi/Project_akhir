@@ -1,4 +1,9 @@
-<?php require_once "/laragon/www/project_akhir/init.php";
+<?php
+//require_once "/laragon/www/project_akhir/model/modelRole.php";
+require_once "/laragon/www/project_akhir/init.php";
+ 
+
+ $obj_role = $model->getAllRole();
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +22,6 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-
     <?php include_once '/laragon/www/project_akhir/views/includes/navbar.php'; ?>
 
     <!-- Main container -->
@@ -34,7 +38,7 @@
                 <div class="mb-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         <i class="fa-solid fa-plus"></i>
-                        <a href="./role_input.php">Insert New Role</a>
+                        <a href="/project_akhir/views/role/role_input.php">Insert New Role</a>
                     </button>
                 </div>
 
@@ -54,11 +58,8 @@
 
                         </thead>
                         <tbody class="text-gray-700">
-                            <!-- Static Data Rows -->
-                            <?php 
-                                foreach($obj_role as $role){ ?>
-
-
+                            <!-- Dynamic Data Rows -->
+                            <?php foreach($obj_role as $role){ ?>
 
                             <tr class="text-center">
                                 <td class="py-3 px-4 text-blue-600"><?= $role->role_id ?></td>
@@ -69,26 +70,37 @@
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="./role_update.php">Update</a>
+                                        <a
+                                            href="/project_akhir/views/role/role_update.php?id=<?= $role->role_id?>">Update</a>
                                     </button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="#">Delete</a>
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
+                                        onclick="return confirmDelete(<?= $role->role_id ?>)">
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
+
                             <?php } ?>
-
-
-                            </tr>
-
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+    function confirmDelete(roleId) {
+        if (confirm('Apakah Anda yakin ingin menghapus role ini?')) {
+            // Redirect ke halaman delete dengan fitur=delete
+            window.location.href = "/project_akhir/response_input.php?modul=role&fitur=delete&id=" + roleId;
+        } else {
+            // Batalkan penghapusan
+            console.log("gagal menghapus");
+            return false;
+        }
+    }
+    </script>
 
 </body>
 

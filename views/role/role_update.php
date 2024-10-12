@@ -1,3 +1,11 @@
+<?php
+    require_once "/laragon/www/project_akhir/init.php";
+
+    $obj_role = $model->getRoleById($_GET['id']);
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,22 +34,22 @@
             <!-- Formulir Input Role -->
             <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Input Role</h2>
-                <form action="" method="POST">
+                <form action="../../response_input.php?modul=role&fitur=update" method="POST">
                     <!-- Nama Role -->
                     <div class="mb-4">
                         <label for="role_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Role:</label>
                         <input type="text" id="role_name" name="role_name"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Masukkan Nama Role" required value="">
+                            placeholder="Masukkan Nama Role" required value="<?= $obj_role->role_name ?>">
                     </div>
 
                     <!-- Salary Role -->
                     <div class="mb-4">
-                        <label for="role_name" class="block text-gray-700 text-sm font-bold mb-2">Salary
+                        <label for="role_gaji" class="block text-gray-700 text-sm font-bold mb-2">Salary
                             Role:</label>
-                        <input type="number" id="role_name" name="role_name"
+                        <input type="number" id="role_gaji" name="role_gaji"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Masukkan Gaji Role" required value="">
+                            placeholder="Masukkan Gaji Role" required value="<?= $obj_role->role_gaji ?>">
                     </div>
 
                     <!-- Role Deskripsi -->
@@ -50,7 +58,8 @@
                             Deskripsi:</label>
                         <textarea id="role_description" name="role_description"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Masukkan Deskripsi Role" rows="3" required></textarea>
+                            placeholder="Masukkan Deskripsi Role" rows="3"
+                            required> <?= $obj_role->role_description ?></textarea>
                     </div>
 
                     <!-- Role Status -->
@@ -59,11 +68,10 @@
                         <select id="role_status" name="role_status"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
-                            <option value="1">Active
-                            </option>
-                            <option value="0">Inactive
-                            </option>
+                            <option value="1" <?= $obj_role->role_status == 1 ? 'selected' : '' ?>>Active</option>
+                            <option value="0" <?= $obj_role->role_status == 0 ? 'selected' : '' ?>>Inactive</option>
                         </select>
+
                     </div>
 
                     <!-- Submit and Cancel Buttons -->
