@@ -23,7 +23,7 @@
             </div>
 
             <button onclick=""
-                class="ml-4 bg-red-600 hover:bg-red-700 hover:text-black text-white font-bold py-2 px-4 rounded flex">
+                class="ml-4 bg-slate-500 hover:bg-red-700 hover:text-black text-white font-bold py-2 px-4 rounded flex border-2 border-gray-900">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"

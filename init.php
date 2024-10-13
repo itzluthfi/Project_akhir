@@ -2,9 +2,11 @@
 
 session_start();
 include_once "model/modelRole.php";
+include_once "model/modelItem.php";
 // initiate
 //role
 $modelRole = new modelRole();
+$modelItem = new modelItem();
 
 
 // $obj_role = [];

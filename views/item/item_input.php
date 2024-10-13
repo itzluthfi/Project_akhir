@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Barang</title>
+    <title>Input item</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -21,34 +22,34 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-            <!-- Formulir Input barang -->
+            <!-- Formulir Input item -->
             <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Update Barang</h2>
-                <form action="" method="POST">
-                    <!-- Nama barang -->
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Input item</h2>
+                <form action="#" method="POST">
+                    <!-- Nama item -->
                     <div class="mb-4">
-                        <label for="barang_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Barang:</label>
-                        <input type="text" id="barang_name" name="barang_name"
+                        <label for="item_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Item:</label>
+                        <input type="text" id="item_name" name="item_name"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Masukkan nama barang" required value="">
+                            placeholder="Masukkan Nama item" required>
                     </div>
 
-                    <!-- Harga Barang -->
+                    <!-- Harga item -->
                     <div class="mb-4">
-                        <label for="barang_harga" class="block text-gray-700 text-sm font-bold mb-2">Harga
-                            Barang:</label>
-                        <input type="number" id="barang_harga" name="barang_harga"
+                        <label for="item_harga" class="block text-gray-700 text-sm font-bold mb-2">Harga
+                            Item:</label>
+                        <input type="number" id="item_harga" name="item_harga"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Masukkan harga barang" required value="">
+                            placeholder="Masukkan Harga item" required>
                     </div>
 
-                    <!-- Stock Barang -->
-                    <div class="mb-4 text-left">
-                        <label for="barang_stock" class="block text-gray-700 text-sm font-bold mb-2">Stock
-                            Barang:</label>
-                        <input type="number" id="barang_stock" name="barang_stock"
+                    <!-- Stock item -->
+                    <div class="mb-4">
+                        <label for="item_stock" class="block text-gray-700 text-sm font-bold mb-2">Stock
+                            Item:</label>
+                        <input type="number" id="item_stock" name="item_stock"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Masukkan jumlah stock barang" required value="">
+                            placeholder="Masukkan Jumlah Stock item" required>
                     </div>
 
                     <!-- Submit and Cancel Buttons -->

@@ -1,4 +1,10 @@
-<?php require_once "/laragon/www/project_akhir/init.php" ?>
+<?php
+//require_once "/laragon/www/project_akhir/model/modelRole.php";
+require_once "/laragon/www/project_akhir/init.php";
+ 
+
+ $obj_items = $modelItem->getAllItem();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,11 +12,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Barang</title>
+    <title>List Item</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
+<style>
+.w-Search-Input {
+    width: 400px;
+}
+</style>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
@@ -26,46 +37,48 @@
         <div class="flex-1 p-8">
             <!-- Your main content goes here -->
             <div class="container mx-auto">
-                <!-- Button to Insert New Barang -->
+                <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Item</h1>
+
+                <!-- Button to Insert New Item -->
                 <div class="mb-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         <i class="fa-solid fa-plus"></i>
 
-                        <a href="./barang_input.php">Insert Barang</a>
+                        <a href="./item_input.php">Add New Item</a>
                     </button>
                 </div>
-
-                <!-- Barangs Table -->
+                <input id="search-input" type="text" name="query" placeholder="Search By Name Or Id"
+                    class="p-2 border border-gray-300 rounded-xl w-Search-Input " />
+                <!-- Items Table -->
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-full bg-white grid-cols-1">
                         <thead class="bg-gray-800 text-white">
 
                             <tr>
-                                <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">Barang ID</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Barang Name</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Barang Price</th>
-                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Barang Stock</th>
+                                <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">Item ID</th>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Item Name</th>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Item Price</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Item Stock</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
                             </tr>
 
                         </thead>
                         <tbody class="text-gray-700">
-                            <!-- Static Data Rows -->
-                            <?php 
-                                foreach($obj_barang as $barang){ ?>
-
-
+                            <!-- Dynamic Data Rows -->
+                            <?php foreach($obj_items as $item){ ?>
 
                             <tr class="text-center">
-                                <td class="py-3 px-4 text-blue-600"><?= $barang->barang_id ?></td>
-                                <td class="w-1/4 py-3 px-4"><?= $barang->barang_name ?></td>
-                                <td class="w-1/4 py-3 px-4"><?= $barang->barang_price ?></td>
+                                <td class="py-3 px-4 text-blue-600"><?= $item->item_id ?></td>
+                                <td class="w-1/4 py-3 px-4"><?= $item->item_name ?></td>
+                                <td class="w-1/4 py-3 px-4"><?= $item->item_price ?></td>
                                 <td class="w-1/6 py-3 px-4">
-                                    <?= $barang->barang_stock == 0 ? $barang->barang_stock : "habis"   ?></td>
+                                    <?= $item->item_stock == 0 ? "habis" : $item->item_stock ?>
+                                </td>
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="./barang_update.php"><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <a href="./item_update.php?id=<?= $item->item_id ?>"><i
+                                                class="fa-regular fa-pen-to-square"></i></a>
                                     </button>
                                     <button
                                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
@@ -74,17 +87,15 @@
                                 </td>
                             </tr>
                             <?php } ?>
-
-
-                            </tr>
-
-
                         </tbody>
+
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 </body>
 

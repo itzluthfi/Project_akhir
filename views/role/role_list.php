@@ -39,6 +39,9 @@ require_once "/laragon/www/project_akhir/init.php";
         <div class="flex-1 p-8">
             <!-- Your main content goes here -->
             <div class="container mx-auto">
+                <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Role</h1>
+
+
                 <!-- Button to Insert New Role -->
                 <div class="mb-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

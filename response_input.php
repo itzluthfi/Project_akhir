@@ -22,8 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                     break;
 
                 case 'update':
-                    $role_id = $_POST['role_id'];
-                    print_r($role_id);
+                    $role_id = $_POST['role_id'];                  
                     $role_name = $_POST['role_name'];
                     $role_description = $_POST['role_description'];
                     $role_status = $_POST['role_status'];
