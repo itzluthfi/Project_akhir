@@ -65,11 +65,11 @@
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="./barang_update.php">Update</a>
+                                        <a href="./barang_update.php"><i class="fa-regular fa-pen-to-square"></i></a>
                                     </button>
                                     <button
                                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="#">Delete</a>
+                                        <a href="#"><i class="fa-solid fa-trash"></i></a>
                                     </button>
                                 </td>
                             </tr>

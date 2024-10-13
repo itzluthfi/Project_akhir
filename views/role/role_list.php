@@ -3,7 +3,7 @@
 require_once "/laragon/www/project_akhir/init.php";
  
 
- $obj_role = $model->getAllRole();
+ $obj_role = $modelRole->getAllRole();
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +18,11 @@ require_once "/laragon/www/project_akhir/init.php";
 
 
 </head>
+<style>
+.w-Search-Input {
+    width: 400px;
+}
+</style>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
@@ -38,9 +43,11 @@ require_once "/laragon/www/project_akhir/init.php";
                 <div class="mb-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         <i class="fa-solid fa-plus"></i>
-                        <a href="/project_akhir/views/role/role_input.php">Insert New Role</a>
+                        <a href="/project_akhir/views/role/role_input.php"> Add New Role</a>
                     </button>
                 </div>
+                <input id="search-input" type="text" name="query" placeholder="Search By Username Or Id"
+                    class="p-2 border border-gray-300 rounded-xl w-Search-Input " />
 
                 <!-- Roles Table -->
                 <div class="bg-white shadow-md rounded my-6">
@@ -70,13 +77,13 @@ require_once "/laragon/www/project_akhir/init.php";
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a
-                                            href="/project_akhir/views/role/role_update.php?id=<?= $role->role_id?>">Update</a>
+                                        <a href="/project_akhir/views/role/role_update.php?id=<?= $role->role_id?>"><i
+                                                class="fa-regular fa-pen-to-square"></i></a>
                                     </button>
                                     <button
                                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
                                         onclick="return confirmDelete(<?= $role->role_id ?>)">
-                                        Delete
+                                        <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -96,7 +103,7 @@ require_once "/laragon/www/project_akhir/init.php";
             window.location.href = "/project_akhir/response_input.php?modul=role&fitur=delete&id=" + roleId;
         } else {
             // Batalkan penghapusan
-            console.log("gagal menghapus");
+            alert("gagal menghapus data");
             return false;
         }
     }

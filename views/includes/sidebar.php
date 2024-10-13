@@ -1,9 +1,13 @@
 <div
-    class="relative flex h-[calc(100vh-2rem)] w-full max-w-[17rem] flex-col bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+    class="relative flex h-[calc(100vh-2rem)] w-full max-w-[17rem] flex-col bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 rounded-xl">
     <div class="p-4 mb-2">
         <h5
             class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 italic">
             WELCOME BACK,
+            <div class="flex">
+                <p class=" text-gray-800 ">Username, </p><span class="italic text-slate-400">Role</span>
+            </div>
+
         </h5>
     </div>
     <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">

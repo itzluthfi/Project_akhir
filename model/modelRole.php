@@ -10,11 +10,11 @@ class modelRole {
     public function __construct() {
         if (isset($_SESSION['roles'])) {
             $this->roles = unserialize($_SESSION['roles']);
-            $this->nextId = count($this->roles) + 1;
-
+            $this->nextId = isset($_SESSION['lastRoleId']) ? $_SESSION['lastRoleId'] + 1 : 1; // Ambil dari sesi
             
         } else {
             $this->initialiazeDefaultRole();
+            $this->nextId = 4; // Misalnya, jika Anda memiliki 3 role default
         }
     }
 
@@ -26,8 +26,10 @@ class modelRole {
 
     public function addRole($role_name, $role_description, $role_status,$role_gaji) {
         error_log("Adding role: Name=$role_name, Description=$role_description, Status=$role_status");
-        $peran = new Role($this->nextId++, $role_name, $role_description, $role_status,$role_gaji);
+        $peran = new Role($this->nextId, $role_name, $role_description, $role_status,$role_gaji);
         $this->roles[] = $peran;
+        $_SESSION['lastRoleId'] = $this->nextId; // Simpan ID terakhir yang digunakan
+        $this->nextId++; // Inkrementasi untuk role berikutnya
         $this->saveToSession();
     }
     

@@ -4,7 +4,7 @@ session_start();
 include_once "model/modelRole.php";
 // initiate
 //role
-$model = new modelRole();
+$modelRole = new modelRole();
 
 
 // $obj_role = [];
@@ -20,6 +20,6 @@ $model = new modelRole();
 // $obj_barang[] = new Barang("silverqueen",14000,5);
 // $obj_barang[] = new Barang("xilytol",9000,9);
 
-//$model->initialiazeDefaultRole();
+
 
 ?>

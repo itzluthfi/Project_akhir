@@ -1,7 +1,7 @@
 <?php
     require_once "/laragon/www/project_akhir/init.php";
 
-    $obj_role = $model->getRoleById($_GET['id']);
+    $obj_role = $modelRole->getRoleById($_GET['id']);
 ?>
 
 <!DOCTYPE html>

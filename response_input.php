@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                     $role_description = $_POST['role_description'];
                     $role_status = $_POST['role_status'];
                     $role_gaji = $_POST['role_gaji'];
-                    $model->addRole($role_name, $role_description, $role_status, $role_gaji);
+                    $modelRole->addRole($role_name, $role_description, $role_status, $role_gaji);
                     $message = "Role added successfully!";
                     break;
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                     $role_description = $_POST['role_description'];
                     $role_status = $_POST['role_status'];
                     $role_gaji = $_POST['role_gaji'];
-                    if ($model->updateRole($role_id, $role_name, $role_description, $role_status, $role_gaji)) {
+                    if ($modelRole->updateRole($role_id, $role_name, $role_description, $role_status, $role_gaji)) {
                         $message = "Role updated successfully!";
                     } else {
                         $message = "Failed to update role.";
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                 case 'delete':
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
-                        if ($model->deleteRole($id)) {
+                        if ($modelRole->deleteRole($id)) {
                             $message = "Role deleted successfully!";
                         } else {
                             $message = "Failed to delete role.";
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         //             $username = $_POST['username'];
         //             $email = $_POST['email'];
         //             $password = $_POST['password'];
-        //             $model->addUser($username, $email, $password);
+        //             $modelRole->addUser($username, $email, $password);
         //             $message = "User added successfully!";
         //             break;
 
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         //             $user_id = $_POST['user_id'];
         //             $username = $_POST['username'];
         //             $email = $_POST['email'];
-        //             if ($model->updateUser($user_id, $username, $email)) {
+        //             if ($modelRole->updateUser($user_id, $username, $email)) {
         //                 $message = "User updated successfully!";
         //             } else {
         //                 $message = "Failed to update user.";
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         //         case 'delete':
         //             if (isset($_GET['id'])) {
         //                 $id = $_GET['id'];
-        //                 if ($model->deleteUser($id)) {
+        //                 if ($modelRole->deleteUser($id)) {
         //                     $message = "User deleted successfully!";
         //                 } else {
         //                     $message = "Failed to delete user.";
