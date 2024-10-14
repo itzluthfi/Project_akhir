@@ -25,7 +25,7 @@
             <!-- Formulir Input item -->
             <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Input item</h2>
-                <form action="#" method="POST">
+                <form action="/project_akhir/response_input.php?modul=item&fitur=add" method="POST">
                     <!-- Nama item -->
                     <div class="mb-4">
                         <label for="item_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Item:</label>
@@ -36,9 +36,9 @@
 
                     <!-- Harga item -->
                     <div class="mb-4">
-                        <label for="item_harga" class="block text-gray-700 text-sm font-bold mb-2">Harga
+                        <label for="item_price" class="block text-gray-700 text-sm font-bold mb-2">Harga
                             Item:</label>
-                        <input type="number" id="item_harga" name="item_harga"
+                        <input type="number" id="item_price" name="item_price"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Masukkan Harga item" required>
                     </div>

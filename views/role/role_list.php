@@ -49,7 +49,7 @@ require_once "/laragon/www/project_akhir/init.php";
                         <a href="/project_akhir/views/role/role_input.php"> Add New Role</a>
                     </button>
                 </div>
-                <input id="search-input" type="text" name="query" placeholder="Search By Username Or Id"
+                <input id="search-input" type="text" name="query" placeholder="Search By Name Or Id"
                     class="p-2 border border-gray-300 rounded-xl w-Search-Input " />
 
                 <!-- Roles Table -->

@@ -16,11 +16,6 @@
             
         }
 
-        // public function show() {
-        //     echo "id : " . $this->role_id . "<br>";
-        //     echo "name : " . $this->role_name . "<br>";
-        //     echo "description : " . $this->role_description . "<br>";
-        //     echo "status : " . $this->role_status . "<br>";
-        // }
+       
 
     }

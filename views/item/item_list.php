@@ -82,7 +82,9 @@ require_once "/laragon/www/project_akhir/init.php";
                                     </button>
                                     <button
                                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="#"><i class="fa-solid fa-trash"></i></a>
+                                        <a
+                                            href="../../response_input.php?modul=item&fitur=delete&id=<?= $item->item_id ?>"><i
+                                                class="fa-solid fa-trash"></i></a>
                                     </button>
                                 </td>
                             </tr>

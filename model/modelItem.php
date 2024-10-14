@@ -13,7 +13,7 @@ class modelItem {
             
         } else {
             $this->initialiazeDefaultItem();
-            $this->nextId = 4; // Misalnya, jika Anda memiliki 3 Item default
+            $this->nextId = 4; // Misalnya, jika memiliki 3 Item default
         }
     }
 
@@ -24,10 +24,10 @@ class modelItem {
     }
     public function addItem($item_name, $item_price, $item_stock) {
         error_log("Adding Item: Name=iItem_name, price=$item_price, stock=$item_stock");
-        $peran = new Item($this->nextId, $item_name, $item_price, $item_stock);
-        $this->items[] = $peran;
+        $item = new Item($this->nextId, $item_name, $item_price, $item_stock);
+        $this->items[] = $item;
         $_SESSION['lastItemId'] = $this->nextId; // Simpan ID terakhir yang digunakan
-        $this->nextId++; // Inkrementasi untuk Item berikutnya
+        $this->nextId++; // increment
         $this->saveToSession();
     }
     
@@ -49,9 +49,9 @@ class modelItem {
         return null;
     }
 
-    public function updateItem($item_id, $item_name, $item_price, $item_stock) {
+    public function updateItem($id, $item_name, $item_price, $item_stock) {
         foreach ($this->items as $item) {
-            if ($item->item_id == $item_id) {
+            if ($item->item_id == $id) {
                 $item->item_name = $item_name;
                 $item->item_price = $item_price;
                 $item->item_stock = $item_stock;
@@ -65,7 +65,7 @@ class modelItem {
     
     public function deleteItem($id) {
         foreach ($this->items as $key => $item) {
-            if ($item->Item_id == $id) {
+            if ($item->item_id == $id) {
                 unset($this->items[$key]);
                 $this->items = array_values($this->items);
                 $this->saveToSession();

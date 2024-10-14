@@ -14,7 +14,7 @@ class modelRole {
             
         } else {
             $this->initialiazeDefaultRole();
-            $this->nextId = 4; // Misalnya, jika Anda memiliki 3 role default
+            $this->nextId = 4; // Misalnya, jika memiliki 3 role default
         }
     }
 
@@ -26,8 +26,8 @@ class modelRole {
 
     public function addRole($role_name, $role_description, $role_status,$role_gaji) {
         error_log("Adding role: Name=$role_name, Description=$role_description, Status=$role_status");
-        $peran = new Role($this->nextId, $role_name, $role_description, $role_status,$role_gaji);
-        $this->roles[] = $peran;
+        $role = new Role($this->nextId, $role_name, $role_description, $role_status,$role_gaji);
+        $this->roles[] = $role;
         $_SESSION['lastRoleId'] = $this->nextId; // Simpan ID terakhir yang digunakan
         $this->nextId++; // Inkrementasi untuk role berikutnya
         $this->saveToSession();
@@ -51,9 +51,9 @@ class modelRole {
         return null;
     }
 
-    public function updateRole($role_id, $role_name, $role_description, $role_status,$role_gaji) {
+    public function updateRole($id, $role_name, $role_description, $role_status,$role_gaji) {
         foreach ($this->roles as $role) {
-            if ($role->role_id == $role_id) {
+            if ($role->role_id == $id) {
                 $role->role_name = $role_name;
                 $role->role_description = $role_description;
                 $role->role_status = $role_status;

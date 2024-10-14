@@ -1,6 +1,6 @@
 <div
     class="relative flex h-[calc(100vh-2rem)] w-full max-w-[17rem] flex-col bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 rounded-xl">
-    <div class="p-4 mb-2">
+    <div class="p-4 mb-4 mt-1">
         <h5
             class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 italic">
             WELCOME BACK,
@@ -60,7 +60,7 @@
                 <div class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
                     <nav
                         class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
-                        <a href="insert_transaksi.php">
+                        <a href="#">
                             <div role="button"
                                 class="flex items-center w-full p-3 pl-6 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-200 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
@@ -69,7 +69,7 @@
                                 Insert Transaksi
                             </div>
                         </a>
-                        <a href="list_transaksi.php">
+                        <a href="#">
                             <div role="button"
                                 class="flex items-center w-full p-3 pl-6 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-200 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">

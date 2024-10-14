@@ -1,9 +1,9 @@
 <nav class="bg-blue-500 p-4 shadow-lg rounded">
     <div class="container mx-auto flex justify-between items-center">
-        <div class="text-white font-bold text-xl italic">
+        <div class="ml-4 text-white font-bold text-xl italic">
             Point Of Sale
         </div>
-        <div class="relative flex items-center text-white">
+        <div class="relative flex items-center text-white mr-3">
             <!-- Tempat untuk foto berbentuk lingkaran -->
             <div class=" group">
 

@@ -30,7 +30,7 @@
             <!-- Formulir Update item -->
             <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Update Item</h2>
-                <form action="" method="POST">
+                <form action="../../response_input.php?modul=item&fitur=update" method="POST">
                     <input type="hidden" name="item_id" value="<?= $obj_items->item_id ?>">
 
                     <!-- Nama item -->
@@ -43,8 +43,8 @@
 
                     <!-- Harga item -->
                     <div class="mb-4">
-                        <label for="item_harga" class="block text-gray-700 text-sm font-bold mb-2">Harga Item:</label>
-                        <input type="number" id="item_harga" name="item_harga"
+                        <label for="item_price" class="block text-gray-700 text-sm font-bold mb-2">Harga Item:</label>
+                        <input type="number" id="item_price" name="item_price"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Masukkan harga item" required value="<?= $obj_items->item_price ?>">
                     </div>

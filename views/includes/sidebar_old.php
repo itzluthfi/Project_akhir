@@ -20,10 +20,10 @@
             <div class="px-4 py-2 cursor-pointer group-hover:bg-gray-700">Menu Transaksi</div>
             <ul class="ml-4 space-y-1 hidden group-hover:block">
                 <li class="px-4 py-2  bg-gray-700  hover:bg-gray-800 cursor-pointer">
-                    <a href="insert_transaksi.php">Insert Transaksi</a>
+                    <a href="#">Insert Transaksi</a>
                 </li>
                 <li class="px-4 py-2  bg-gray-700  hover:bg-gray-800 cursor-pointer">
-                    <a href="list_transaksi.php">List Transaksi</a>
+                    <a href="#">List Transaksi</a>
                 </li>
             </ul>
         </li>
