@@ -5,10 +5,15 @@
             class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 italic">
             WELCOME BACK,
             <div class="flex">
-                <p class=" text-gray-800 ">Username, </p><span class="italic text-slate-400">Role</span>
+                <p class="text-gray-800 ">
+                    <?= unserialize($_SESSION['user_login'])->user_username ?>,
+                </p>
+                <span class="italic text-slate-400">
+                    <?= unserialize($_SESSION['user_login'])->user_role ?>
+                </span>
             </div>
-
         </h5>
+
     </div>
     <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
         <a href="/project_akhir/views/role/role_list.php">

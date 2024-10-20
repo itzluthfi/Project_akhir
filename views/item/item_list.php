@@ -1,6 +1,7 @@
 <?php
 //require_once "/laragon/www/project_akhir/model/modelRole.php";
 require_once "/laragon/www/project_akhir/init.php";
+include "/laragon/www/project_akhir/auth_check.php"; 
  
 
  $obj_items = $modelItem->getAllItem();

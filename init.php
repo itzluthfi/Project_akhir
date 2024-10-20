@@ -12,6 +12,7 @@ $modelUser = new modelUser();
 
 
 
+
 // $obj_role = [];
 // $obj_role[] = new Role("kasir","pelayan pelanggan",1,100000);
 // $obj_role[] = new Role("admin","pengatur",0,200000);

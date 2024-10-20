@@ -1,13 +1,14 @@
 <?php
 require_once "/laragon/www/project_akhir/init.php";
+session_start(); // Mulai sesi di awal
 
-// Check request method (POST or GET)
+// Check request method (POST atau GET)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
-    // Determine the module and action from the request
+    // Tentukan modul dan action dari request
     $modul = isset($_POST["modul"]) ? $_POST["modul"] : $_GET["modul"];
-    $action = isset($_POST["action"]) ? $_POST["action"] : $_GET["fitur"];
+    $action = isset($_POST["fitur"]) ? $_POST["fitur"] : $_GET["fitur"] ;
 
-    // Direct each module to its respective controller
+    // Arahkan setiap modul ke controller masing-masing
     switch ($modul) {
         case 'role':
             require_once 'controller/ControllerRole.php';
@@ -27,9 +28,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $userController->handleAction($action);
             break;
             
+        case 'login':
+            $username = $_POST["username_login"];
+            $password = $_POST["password_login"];
+            $users = $modelUser->getAllUser(); 
+
+            foreach ($users as $user) {
+                // Cocokkan username dan password
+                if ($user->user_username == $username && $user->user_password == $password) {
+                    echo "<script>alert('Login berhasil'); window.location.href='/project_akhir/views/role/role_list.php';</script>";
+                    // Simpan data user ke session
+                    $_SESSION['user_login'] = serialize($user);
+                    return;
+                }
+            }
+            // Jika login gagal
+            echo "<script>alert('Login gagal!'); window.location.href='/project_akhir/';</script>";
+            break;
+
+            case 'logout':
+                // Hapus sesi pengguna dan redirect ke halaman login
+                session_destroy(); // Menghentikan sesi
+                echo "<script>alert('Logout berhasil!'); window.location.href='/project_akhir/';</script>";
+                break;
 
         default:
-            echo "<script>alert('Module not recognized.'); window.location.href='/project_akhir/{$modul}/{$modul}_list';</script>";
+            echo "<script>alert('Module tidak dikenal.'); window.location.href='/project_akhir/{$modul}/{$modul}_list.php';</script>";
             break;
     }
 }

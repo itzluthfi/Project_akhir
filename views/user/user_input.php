@@ -36,8 +36,6 @@
                             placeholder="Masukkan Nama User" required>
                     </div>
 
-
-
                     <!-- Password User -->
                     <div class="mb-4">
                         <label for="user_password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
@@ -55,9 +53,12 @@
                             <option value="">Pilih Role</option>
                             <?php 
                             $roles = $modelRole->getAllRole();
-                            foreach($roles as $role) { ?>
+                            foreach($roles as $role) { 
+                            if($role->role_status == 1){  ?>
+
                             <option value="<?= $role->role_name ?>"><?= $role->role_name ?></option>
-                            <?php } ?>
+
+                            <?php } } ?>
                         </select>
                     </div>
 
