@@ -14,8 +14,13 @@ class ControllerItem {
                 $item_name = $_POST['item_name'];
                 $item_price = $_POST['item_price'];
                 $item_stock = $_POST['item_stock'];
-                $this->modelItem->addItem($item_name, $item_price, $item_stock);
-                $message = "Item added successfully!";
+                if($this->modelItem->addItem($item_name, $item_price, $item_stock)){
+
+                    $message = "Item added successfully!";
+                }else{
+                    $message = "Failed to Add item.";
+
+                }
                 break;
 
             case 'update':

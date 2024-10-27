@@ -1,3 +1,6 @@
+<?php
+    require_once "/laragon/www/project_akhir/init.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,89 +1,83 @@
+<?php
+// var_dump($_COOKIE['user_login']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Item</title>
+    <title>Login - Point of Sale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 </head>
 
-<body>
+<body class="bg-gray-100">
 
     <!-- Container -->
-    <div class="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
+    <div class="relative flex flex-wrap min-h-screen items-center justify-center py-10 ">
+
+        <!-- Background Video -->
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 opacity-75">
+            <source src="public/img/bglive1.mp4" type="video/mp4">
+        </video>
+
+        <!-- Overlay to darken video -->
+        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
 
         <!-- Login component -->
-        <div class="flex shadow-md">
+        <div class="relative flex shadow-lg rounded-lg overflow-hidden bg-white z-20 opacity-90 transition-all">
             <!-- Login form -->
-            <div class="flex flex-wrap content-center justify-center rounded-l-md bg-white"
+            <div class="flex flex-col justify-center p-8" style="width: 24rem; height: 32rem;">
+                <h1 class="text-2xl font-bold text-center text-purple-700 italic">Welcome To </h1>
+                <h1 class="text-4xl font-bold text-center text-purple-700">My Point Of Sale</h1>
+                <p class="text-gray-500 text-center italic">Please enter your details!</p>
+
+                <!-- Form -->
+                <form class="mt-6 opacity-65 hover:opacity-100  transition-opacity duration-300"
+                    action="/project_akhir/response_input.php?modul=login&fitur=" method="POST">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold mb-1" for="username">Username</label>
+                        <input id="username" type="text" name="username_login" placeholder="Enter your Username"
+                            required
+                            class="block w-full border border-gray-300 rounded-md focus:border-purple-700 focus:ring-1 focus:ring-purple-700 py-2 px-3 text-gray-700 transition duration-200" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold mb-1" for="password">Password</label>
+                        <input id="password" type="password" name="password_login" placeholder="*****" required
+                            class="block w-full border border-gray-300 rounded-md focus:border-purple-700 focus:ring-1 focus:ring-purple-700 py-2 px-3 text-gray-700 transition duration-200" />
+                    </div>
+
+                    <div class="mb-4 flex items-center">
+                        <input id="remember" name="remember_me" type="checkbox" class="mr-2" />
+                        <label for="remember" class="text-sm font-semibold">Remember me for 1 day</label>
+                        <a href="#" class="ml-auto text-sm font-semibold text-purple-700 hover:underline">Forgot
+                            password?</a>
+                    </div>
+
+                    <button type="submit"
+                        class="  w-full text-center text-white bg-purple-700 hover:bg-purple-900 transition duration-200 px-4 py-2 rounded-md">Sign
+                        in</button>
+                </form>
+
+                <!-- <div class="text-center mt-4 ">
+                    <span class="text-sm text-gray-400 italic">Don't have an account?</span>
+                    <a href="#" class="text-sm font-semibold text-purple-700 hover:underline ">Sign up</a>
+                </div> -->
+            </div>
+
+            <!-- Login Video Banner -->
+            <div class="flex items-center justify-center bg-gray-300 relative transition-opacity opacity-70 hover:opacity-100 duration-1000"
                 style="width: 24rem; height: 32rem;">
-                <div class="w-72">
-                    <!-- Heading -->
-                    <h1 class="text-xl font-semibold italic">Welcome To My Point Of Sale</h1>
-
-                    <small class="text-gray-400">Please enter your details!</small>
-
-                    <!-- Form -->
-                    <form class="mt-4" action="/project_akhir/response_input.php?modul=login" method="POST">
-                        <div class="mb-3">
-                            <label class="mb-2 block text-xs font-semibold">Username</label>
-                            <input type="username" name="username_login" placeholder="Enter your Username" required
-                                class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="mb-2 block text-xs font-semibold">Password</label>
-                            <input type="password" name="password_login" placeholder=" *****" required
-                                class="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
-                        </div>
-
-                        <div class="mb-3 flex flex-wrap content-center">
-                            <input id="remember" name="remember_me" type="checkbox"
-                                class="mr-1 checked:bg-purple-700" />
-                            <label for="remember" class="mr-auto text-xs font-semibold">Remember for 1 days</label>
-                            <a href="#" class="text-xs font-semibold text-purple-700">Forgot password?</a>
-                        </div>
-
-
-                        <div class="mb-3">
-                            <button
-                                class="mb-1.5 block w-full text-center text-white bg-purple-700 hover:bg-purple-900 px-2 py-1.5 rounded-md">Sign
-                                in</button>
-                            <!-- <button
-                        class="flex flex-wrap justify-center w-full border border-gray-300 hover:border-gray-500 px-2 py-1.5 rounded-md">
-                        <img class="w-5 mr-2"
-                            src="https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA">
-                        Sign in with Google
-                    </button> -->
-                        </div>
-                    </form>
-
-                    <!-- Footer -->
-                    <!-- <div class="text-center">
-                <span class="text-xs text-gray-400 font-semibold">Don't have account?</span>
-                <a href="#" class="text-xs font-semibold text-purple-700">Sign up</a>
-            </div> -->
-                </div>
+                <video autoplay muted loop class="object-cover w-full h-full  ">
+                    <source src="public/img/bglive1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-
-            <!-- Login banner -->
-            <div class="flex flex-wrap content-center justify-center rounded-r-md" style="width: 24rem; height: 32rem;">
-                <img class="w-full h-full bg-center bg-no-repeat bg-cover rounded-r-md"
-                    src="https://i.imgur.com/9l1A4OS.jpeg">
-            </div>
-
         </div>
 
-        <!-- Credit -->
-        <!-- <div class="mt-3 w-full">
-<p class="text-center">Made by <a target="_blank" href="https://www.instagram.com/_inubayuaji/"
-      class="text-purple-700">Inu Bayu Aji</a> and ispired by <a target="_blank"
-      href="https://dribbble.com/shots/17564792-Log-in-page-Untitled-UI" class="text-purple-700">this</a>.
-</p>
-</div> -->
     </div>
 </body>
 

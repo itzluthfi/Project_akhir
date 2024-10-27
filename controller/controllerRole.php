@@ -15,8 +15,12 @@ class ControllerRole {
                 $role_description = $_POST['role_description'];
                 $role_status = $_POST['role_status'];
                 $role_gaji = $_POST['role_gaji'];
-                $this->modelRole->addRole($role_name, $role_description, $role_status, $role_gaji);
-                $message = "Role added successfully!";
+                if($this->modelRole->addRole($role_name, $role_description, $role_status, $role_gaji)){
+
+                    $message = "Role added successfully!";
+                }else{
+                    $message = "Failed to add role.";
+                }
                 break;
 
             case 'update':
@@ -50,7 +54,7 @@ class ControllerRole {
                 break;
         }
 
-        // Redirect after action
+        // Redirect 
         echo "<script>alert('$message'); window.location.href='/project_akhir/views/role/role_list.php';</script>";
     }
 }

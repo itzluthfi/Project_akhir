@@ -58,7 +58,7 @@
                         <select id="user_role" name="user_role"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
-                            <option value="">Pilih Role</option>
+                            <option value="<?= $obj_users->user_role ?>"><?= $obj_users->user_role ?></option>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                         </select>

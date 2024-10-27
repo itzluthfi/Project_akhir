@@ -1,13 +1,3 @@
-<?php
-
- // Ambil data user dari session
- if (isset($_SESSION['user_login'])) {
-    $user = unserialize($_SESSION['user_login']); // unserialize objek user
-    $username = $user->user_username; // Ambil username
-    $role = $user->user_role; // Ambil role (jika ada)
- }
-
-?>
 <nav class="bg-blue-500 p-4 shadow-lg rounded">
     <div class="container mx-auto flex justify-between items-center">
         <div class="ml-4 text-white font-bold text-xl italic">
@@ -27,12 +17,14 @@
                     <img src="../../public/img/pp3.jpg" alt="Profile Image"
                         class="w-10 h-10 rounded-full my-1 object-cover border-2 border-gray-300">
                     <!-- Username dan Role -->
-                    <span class="text-black text-center"><?= htmlspecialchars($username) ?></span>
-                    <span class="text-slate-500 text-center italic"><?= htmlspecialchars($role) ?></span>
+                    <span class="text-black text-center">
+                        <?= unserialize($_SESSION['user_login'] )->user_username ?></span>
+                    <span
+                        class="text-slate-500 text-center italic"><?= unserialize($_SESSION['user_login'])->user_role ?></span>
                 </div>
             </div>
 
-            <form action="../../response_input.php?modul=logout&fitur=add" method="POST">
+            <form action="../../response_input.php?modul=logout&fitur=logout" method="POST">
                 <button type="submit"
                     class="ml-4 bg-slate-500 hover:bg-red-700 hover:text-black text-white font-bold py-2 px-4 rounded flex border-2 border-gray-900">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

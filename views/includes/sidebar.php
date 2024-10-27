@@ -16,6 +16,15 @@
 
     </div>
     <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+        <a href="/project_akhir/views/dashboard/dashboard.php">
+            <div role="button"
+                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-100 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="ml-1 grid mr-4 place-items-center">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                Dashboard
+            </div>
+        </a>
         <a href="/project_akhir/views/role/role_list.php">
             <div role="button"
                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-100 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">

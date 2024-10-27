@@ -14,8 +14,13 @@ class ControllerUser {
                 $user_username = $_POST['user_username'];
                 $user_password = $_POST['user_password'];
                 $user_role = $_POST['user_role'];
-                $this->modelUser->addUser($user_username, $user_password, $user_role);
-                $message = "User added successfully!";
+                if($this->modelUser->addUser($user_username, $user_password, $user_role)){
+
+                    $message = "User added successfully!";
+                }else{
+                    $message = "Failed to Add User";
+
+                }
                 break;
 
             case 'update':
@@ -26,7 +31,7 @@ class ControllerUser {
                 if ($this->modelUser->updateUser($user_id, $user_username, $user_password, $user_role)) {
                     $message = "User updated successfully!";
                 } else {
-                    $message = "Failed to update user.";
+                    $message = "Failed to update User.";
                 }
                 break;
 

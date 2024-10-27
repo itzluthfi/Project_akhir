@@ -5,6 +5,7 @@ require_once "/laragon/www/project_akhir/init.php";
 include "/laragon/www/project_akhir/auth_check.php"; 
 
  $obj_role = $modelRole->getAllRole();
+//  var_dump($_COOKIE['user_login']);
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +41,7 @@ include "/laragon/www/project_akhir/auth_check.php";
         <div class="flex-1 p-8">
             <!-- Your main content goes here -->
             <div class="container mx-auto">
+
                 <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Role</h1>
 
 
@@ -76,7 +78,16 @@ include "/laragon/www/project_akhir/auth_check.php";
                                 <td class="py-3 px-4 text-blue-600"><?= $role->role_id ?></td>
                                 <td class="w-1/6 py-3 px-4"><?= $role->role_name ?></td>
                                 <td class="w-1/4 py-3 px-4"><?= $role->role_description ?></td>
-                                <td class="w-1/6 py-3 px-4"><?= $role->role_status ? "active" : "inactive"   ?></td>
+                                <td class="w-1/6 py-3 px-4">
+                                    <span
+                                        class="<?= $role->role_status ? 'text-green-500' : 'text-red-500' ?> bg-gray-200 rounded-full px-3 py-1">
+                                        <?= $role->role_status ? "active" : "non active" ?>
+                                    </span>
+                                </td>
+
+
+
+
                                 <td class="w-1/6 py-3 px-4"><?= $role->role_gaji ?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <button

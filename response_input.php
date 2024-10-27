@@ -1,6 +1,5 @@
 <?php
 require_once "/laragon/www/project_akhir/init.php";
-session_start(); // Mulai sesi di awal
 
 // Check request method (POST atau GET)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -28,27 +27,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $userController->handleAction($action);
             break;
             
-        case 'login':
-            $username = $_POST["username_login"];
-            $password = $_POST["password_login"];
-            $users = $modelUser->getAllUser(); 
+            case 'login':
+                $username = $_POST["username_login"];
+                $password = $_POST["password_login"];
+                $rememberMe = isset($_POST["remember_me"]); // Cek apakah "Remember Me" dicentang
+                $users = $modelUser->getAllUser(); 
 
-            foreach ($users as $user) {
-                // Cocokkan username dan password
-                if ($user->user_username == $username && $user->user_password == $password) {
+                foreach ($users as $user) {
+                    // Cocokkan username dan password
+                    if ($user->user_username == $username && $user->user_password == $password) {
+                        // Simpan data user ke session
+                        $_SESSION['user_login'] = serialize($user);
+
+                            
+                    // Jika "Remember Me" dicentang, simpan cookie yang berlaku selama 1 hari
+                    if ($rememberMe) {
+                        setcookie('user_login', serialize($user), time() + (86400), "/"); // 86400 detik = 1 hari
+                    }
+
                     echo "<script>alert('Login berhasil'); window.location.href='/project_akhir/views/role/role_list.php';</script>";
-                    // Simpan data user ke session
-                    $_SESSION['user_login'] = serialize($user);
-                    return;
+
+                        return;
+                    }
                 }
-            }
             // Jika login gagal
             echo "<script>alert('Login gagal!'); window.location.href='/project_akhir/';</script>";
             break;
 
             case 'logout':
-                // Hapus sesi pengguna dan redirect ke halaman login
-                session_destroy(); // Menghentikan sesi
+                // Hapus sesi dan cookie
+                session_unset();
+                session_destroy(); 
+                
+                if (isset($_COOKIE['user_login'])) {
+                    
+                    setcookie('user_login', '', time() - 3600, "/");
+                }
+                
                 echo "<script>alert('Logout berhasil!'); window.location.href='/project_akhir/';</script>";
                 break;
 

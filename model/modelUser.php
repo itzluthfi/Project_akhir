@@ -22,8 +22,9 @@ class modelUser{
         $this->addUser("habib","habib123","Kasir");
         $this->addUser("adam","adam123","Admin");
     }
+    
     public function addUser($user_username, $user_password, $user_role) {
-        error_log("Adding user: Name=$user_username, price=$user_password, stock=$user_role");
+        error_log("Adding user: Name=$user_username, pw=$user_password, role=$user_role");
         $user = new user($this->nextId, $user_username, $user_password, $user_role);
         $this->users[] = $user;
         $_SESSION['lastUserId'] = $this->nextId; // Simpan ID terakhir yang digunakan
