@@ -1,9 +1,18 @@
+<?php
+include_once "/laragon/www/project_akhir/init.php";
+
+$user_name = unserialize($_SESSION['user_login'])->user_username;
+
+$user_role = $modelRole->getRoleById(unserialize($_SESSION['user_login'])->id_role);
+?>
+
 <nav class="bg-blue-500 p-4 shadow-lg rounded">
     <div class="container mx-auto flex justify-between items-center">
         <div class="ml-4 text-white font-bold text-xl italic">
             Point Of Sale
         </div>
         <div class="relative flex items-center text-white mr-3">
+            
             <!-- Tempat untuk foto berbentuk lingkaran -->
             <div class=" group">
 
@@ -18,9 +27,8 @@
                         class="w-10 h-10 rounded-full my-1 object-cover border-2 border-gray-300">
                     <!-- Username dan Role -->
                     <span class="text-black text-center">
-                        <?= unserialize($_SESSION['user_login'] )->user_username ?></span>
-                    <span
-                        class="text-slate-500 text-center italic"><?= unserialize($_SESSION['user_login'])->user_role ?></span>
+                        <?= $user_name ?></span>
+                    <span class="text-slate-500 text-center italic"><?= $user_role->role_name ?></span>
                 </div>
             </div>
 

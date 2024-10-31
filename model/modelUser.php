@@ -5,6 +5,7 @@ require_once "/laragon/www/project_akhir/domain_object/node_user.php";
 class modelUser{
     private $users = [];
     private $nextId = 1;
+    
 
     public function __construct() {
         if (isset($_SESSION['users'])) {
@@ -18,18 +19,19 @@ class modelUser{
     }
 
     public function initialiazeDefaultUser() {
-        $this->addUser("luthfi","luthfi123","Admin");
-        $this->addUser("habib","habib123","Kasir");
-        $this->addUser("adam","adam123","Admin");
+        $this->addUser("luthfi","luthfi123",1);
+        $this->addUser("habib","habib123",3);
+        $this->addUser("adam","adam123",1);
     }
     
-    public function addUser($user_username, $user_password, $user_role) {
-        error_log("Adding user: Name=$user_username, pw=$user_password, role=$user_role");
-        $user = new user($this->nextId, $user_username, $user_password, $user_role);
+    public function addUser($user_username, $user_password, $id_role) {
+        error_log("Adding user: Name=$user_username, pw=$user_password, role=$id_role");
+        $user = new user($this->nextId, $user_username, $user_password, $id_role);
         $this->users[] = $user;
         $_SESSION['lastUserId'] = $this->nextId; // Simpan ID terakhir yang digunakan
         $this->nextId++; // increment
         $this->saveToSession();
+        return true;
     }
     
 
@@ -50,12 +52,12 @@ class modelUser{
         return null;
     }
 
-    public function updateUser($id, $user_username, $user_password, $user_role) {
+    public function updateUser($id, $user_username, $user_password, $id_role) {
         foreach ($this->users as $user) {
             if ($user->user_id == $id) {
                 $user->user_username = $user_username;
                 $user->user_password = $user_password;
-                $user->user_role = $user_role;
+                $user->id_role = $id_role;
                 
                 $this->saveToSession();
                 return true;

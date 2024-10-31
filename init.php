@@ -4,11 +4,13 @@ session_start();
 include_once "model/modelRole.php";
 include_once "model/modelItem.php";
 include_once "model/modelUser.php";
+include_once "model/modelSale.php";
 // initiate
 //role
 $modelRole = new modelRole();
 $modelItem = new modelItem();
 $modelUser = new modelUser();
+$modelSale = new modelSale();
 
 
 

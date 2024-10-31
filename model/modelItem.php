@@ -29,6 +29,8 @@ class modelItem {
         $_SESSION['lastItemId'] = $this->nextId; // Simpan ID terakhir yang digunakan
         $this->nextId++; // increment
         $this->saveToSession();
+        return true;
+
     }
     
 

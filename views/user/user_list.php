@@ -65,12 +65,16 @@ $obj_user = $modelUser->getAllUser();
                         </thead>
                         <tbody class="text-gray-700">
                             <!-- Dynamic Data Rows -->
-                            <?php foreach($obj_user as $user){ ?>
+
+
+                            <?php foreach($obj_user as $user){ 
+                                $user_role = $modelRole->getRoleById($user->id_role);
+                            ?>
                             <tr class="text-center">
                                 <td class="py-3 px-4 text-blue-600"><?= $user->user_id ?></td>
                                 <td class="w-1/6 py-3 px-4"><?= $user->user_username ?></td>
                                 <td class="w-1/4 py-3 px-4"><?= $user->user_password ?></td>
-                                <td class="w-1/6 py-3 px-4"><?= $user->user_role ?></td>
+                                <td class="w-1/6 py-3 px-4"><?= $user_role->role_name ?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">

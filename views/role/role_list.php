@@ -5,7 +5,8 @@ require_once "/laragon/www/project_akhir/init.php";
 include "/laragon/www/project_akhir/auth_check.php"; 
 
  $obj_role = $modelRole->getAllRole();
-//  var_dump($_COOKIE['user_login']);
+//  var_dump($modelSale->getAllSales());
+//  var_dump(unserialize($_SESSION['sales']));
 ?>
 
 <!DOCTYPE html>

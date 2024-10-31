@@ -26,8 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $userController = new ControllerUser();
             $userController->handleAction($action);
             break;
+
+        case 'sale':
+            require_once 'controller/ControllerSale.php';
+            $saleController = new ControllerSale();
+            $saleController->handleAction($action);
+            break;
             
-            case 'login':
+        case 'login':
                 $username = $_POST["username_login"];
                 $password = $_POST["password_login"];
                 $rememberMe = isset($_POST["remember_me"]); // Cek apakah "Remember Me" dicentang
@@ -52,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                 }
             // Jika login gagal
             echo "<script>alert('Login gagal!'); window.location.href='/project_akhir/';</script>";
-            break;
+        break;
 
             case 'logout':
                 // Hapus sesi dan cookie

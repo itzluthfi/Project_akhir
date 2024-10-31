@@ -25,12 +25,13 @@ class modelRole {
     }
 
     public function addRole($role_name, $role_description, $role_status,$role_gaji) {
-        error_log("Adding role: Name=$role_name, Description=$role_description, Status=$role_status");
+       
         $role = new Role($this->nextId, $role_name, $role_description, $role_status,$role_gaji);
         $this->roles[] = $role;
         $_SESSION['lastRoleId'] = $this->nextId; // Simpan ID terakhir yang digunakan
         $this->nextId++; // Inkrementasi untuk role berikutnya
         $this->saveToSession();
+        return true;
     }
     
 
