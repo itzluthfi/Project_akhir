@@ -48,6 +48,19 @@ class ControllerItem {
                 }
                 break;
 
+                case 'getItemById':
+                    if (isset($_GET['id'])) {
+                        $item = $this->modelItem->getItemById($_GET['id']);
+                        if ($item) {
+                            echo json_encode($item);  // Kembalikan item dalam format JSON
+                        } else {
+                            echo json_encode(['error' => 'Item not found']);
+                        }
+                    } else {
+                        echo json_encode(['error' => 'Item ID not provided']);
+                    }
+                    break;
+
             default:
                 $message = "Action not recognized for item.";
                 break;

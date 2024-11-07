@@ -4,7 +4,7 @@ require_once "/laragon/www/project_akhir/domain_object/node_sale.php";
 require_once "/laragon/www/project_akhir/domain_object/node_detailSale.php";
 
 class ModelSale {
-    private int $nextId = 1;
+    public int $nextId = 1;
     /** @var Sale[] */
     private array $sales = [];
 
@@ -18,9 +18,9 @@ class ModelSale {
         }
     }
 
-    //new DetailSale($id_sale, $item_id, $item_name, $item_price, $item_qty);
     private function initializeDefaultSales(){
         $items1 = [
+            //new DetailSale($id_sale, $item_id, $item_name, $item_price, $item_qty);
             new DetailSale(1, 1, "Item 1", 10000, 50),
             new DetailSale(1, 2, "Item 2", 15000, 30),
         ];
@@ -37,9 +37,17 @@ class ModelSale {
             new DetailSale(3, 1, "Item 1", 10000, 50),
         ];
         $this->addSale($items3, 20000, 0, 20000, "21-08-2022");
+        //$this->deleteSale(2);
+        $items3 = [
+            new DetailSale(3, 2, "Item 2", 15000, 30),
+            new DetailSale(1, 2, "Item 3", 20000, 20),
+            new DetailSale(3, 1, "Item 1", 10000, 50),
+        ];
+        $this->addSale($items3, 20000, 4000, 16000, "22-08-2022");
+
     }
 
-    public function addSale(array $detailSale, float $salePay, float $saleChange, float $saleTotalPrice, string $saleDate): bool {
+    public function addSale(array $detailSale, float $salePay, float $saleChange, float $saleTotalPrice, string $saleDate) {
         echo "<script>console.log('Menambahkan penjualan: Date={$saleDate}, Items=" . implode(",", array_map(fn($item) => $item->item_name, $detailSale)) . "');</script>";
 
         // Memperbaiki urutan parameter
@@ -50,10 +58,10 @@ class ModelSale {
         $_SESSION['lastSaleId'] = $this->nextId;
         $this->nextId++;
         $this->saveToSession();
-        return true;
+        return $sale;
     }
 
-    private function saveToSession(): void {
+    private function saveToSession() {
         $_SESSION['sales'] = serialize($this->sales);
     }
 
@@ -69,5 +77,26 @@ class ModelSale {
         }
         return null;
     }
+
+
+
+    public function deleteSale(int $saleId): bool {
+        foreach ($this->sales as $index => $sale) {
+            if ($sale->sale_id === $saleId) {
+                // Hapus penjualan dari array
+                unset($this->sales[$index]);
+                // Re-index array setelah penghapusan
+                $this->sales = array_values($this->sales);
+    
+                // Update sesi untuk mencerminkan perubahan
+                $this->saveToSession();
+                return true;
+            }
+        }
+        return false; // Jika penjualan dengan ID yang diberikan tidak ditemukan
+    }
+    
 }
+
+
 ?>

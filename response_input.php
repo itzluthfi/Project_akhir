@@ -27,6 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $userController->handleAction($action);
             break;
 
+        case 'member':
+            require_once 'controller/ControllerMember.php';
+            $userController = new ControllerMember();
+            $userController->handleAction($action);
+            break;
+
         case 'sale':
             require_once 'controller/ControllerSale.php';
             $saleController = new ControllerSale();

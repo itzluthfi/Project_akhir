@@ -22,6 +22,17 @@ $sales = $modelSale->getAllSales();
     function closeModal(id) {
         document.getElementById(id).classList.add('hidden');
     }
+
+    function confirmDelete(saleId) {
+        if (confirm('Apakah Anda yakin ingin menghapus role ini?')) {
+            // Redirect ke halaman delete dengan fitur=delete
+            window.location.href = "/project_akhir/response_input.php?modul=sale&fitur=delete&id=" + saleId;
+        } else {
+            // Batalkan penghapusan
+            alert("gagal menghapus data");
+            return false;
+        }
+    }
     </script>
 </head>
 
@@ -44,8 +55,8 @@ $sales = $modelSale->getAllSales();
             <!-- Main Container for Transactions -->
             <div class="container mx-auto">
                 <!-- sale Table -->
-                <div class="bg-white shadow-md rounded my-6">
-                    <table class="min-w-full bg-white grid-cols-1">
+                <div class="bg-white shadow-md  my-6">
+                    <table class="min-w-full bg-white grid-cols-1 rounded-xl">
                         <thead class="bg-gray-800 text-white">
                             <tr>
                                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID sale</th>
@@ -75,7 +86,7 @@ $sales = $modelSale->getAllSales();
                                         </button>
                                         <button
                                             class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
-                                            onclick="">
+                                            onclick="return confirmDelete(<?= $sale->sale_id ?>)">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </div>
@@ -133,6 +144,52 @@ $sales = $modelSale->getAllSales();
         </div>
     </div>
     <?php } } ?>
+
+    <script>
+    // delete sale
+    function deleteSale(saleId) {
+        if (confirm('Apakah Anda yakin ingin menghapus penjualan ini?')) {
+            // Redirect to delete page with fitur=delete
+            window.location.href = `/project_akhir/response_input.php?modul=sale&fitur=delete&id=${saleId}`;
+        } else {
+            alert("Penghapusan data dibatalkan");
+        }
+    }
+
+    // function addSale(saleId) {
+    //     const newSale = {
+    //         details: [{
+    //                 id_sale: 4,
+    //                 item_id: 1,
+    //                 item_name: "New Item",
+    //                 item_price: 20000,
+    //                 item_qty: 10
+    //             },
+    //             {
+    //                 id_sale: 4,
+    //                 item_id: 2,
+    //                 item_name: "Another Item",
+    //                 item_price: 30000,
+    //                 item_qty: 5
+    //             }
+    //         ],
+    //         pay: 100000,
+    //         change: 20000,
+    //         total: 80000,
+    //         date: "01-11-2024"
+    //     };
+
+    //     fetch('/project_akhir/response_input.php?modul=sale&fitur=add', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(newSale)
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => console.log(data));
+    // }
+    </script>
 
 </body>
 

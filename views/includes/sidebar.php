@@ -51,6 +51,17 @@ $user_role = $modelRole->getRoleById(unserialize($_SESSION['user_login'])->id_ro
                 Master Data User
             </div>
         </a>
+
+        <a href="/project_akhir/views/member/member_list.php">
+            <div role="button"
+                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-100 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                Master Data Member
+            </div>
+        </a>
+
         <a href="/project_akhir/views/item/item_list.php">
             <div role="button"
                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-100 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
@@ -101,6 +112,24 @@ $user_role = $modelRole->getRoleById(unserialize($_SESSION['user_login'])->id_ro
                                 List Transaksi
                             </div>
                         </a>
+                        <!-- <a href="/project_akhir/views/sale/kasirfinal.php">
+                            <div role="button"
+                                class="flex items-center w-full p-3 pl-6 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-200 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                <div class="grid mr-4 place-items-center">
+                                    <i class="fa-solid fa-clipboard"></i>
+                                </div>
+                                kasir view
+                            </div>
+                        </a>
+                        <a href="/project_akhir/views/sale/sale_input.php">
+                            <div role="button"
+                                class="flex items-center w-full p-3 pl-6 leading-tight transition-all rounded-lg outline-none text-start hover:bg-slate-200 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                <div class="grid mr-4 place-items-center">
+                                    <i class="fa-solid fa-clipboard"></i>
+                                </div>
+                                Sale Input
+                            </div>
+                        </a> -->
                     </nav>
                 </div>
             </div>
