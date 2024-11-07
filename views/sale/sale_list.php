@@ -1,5 +1,6 @@
 <?php
 require_once "/laragon/www/project_akhir/init.php";
+require_once "/laragon/www/project_akhir/auth_check.php";
 $sales = $modelSale->getAllSales();
 ?>
 
@@ -60,7 +61,8 @@ $sales = $modelSale->getAllSales();
                         <thead class="bg-gray-800 text-white">
                             <tr>
                                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID sale</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Tanggal</th>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">User</th>
+                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Member</th>
                                 <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Total Harga</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Dibayar</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Kembalian</th>
@@ -69,11 +71,18 @@ $sales = $modelSale->getAllSales();
                         </thead>
                         <tbody class="text-gray-700">
                             <?php if (!empty($sales)) {
+                                // var_dump($sales);
                                 foreach ($sales as $sale) { ?>
                             <tr class="text-center">
                                 <td class="py-3 px-4 text-blue-600">
                                     <?php echo htmlspecialchars($sale->sale_id); ?></td>
-                                <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($sale->sale_date); ?></td>
+                                <!-- <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($sale->sale_date); ?></td> -->
+                                <td class="w-1/4 py-3 px-4">
+                                    <?php $user = $modelUser->getUserById($sale->id_user); echo htmlspecialchars($user->user_username); ?>
+                                </td>
+                                <td class="w-1/4 py-3 px-4">
+                                    <?php $member = $modelMember->getMemberById($sale->id_member); echo htmlspecialchars($member->name); ?>
+                                </td>
                                 <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($sale->sale_totalPrice); ?></td>
                                 <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($sale->sale_pay); ?></td>
                                 <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($sale->sale_change); ?></td>

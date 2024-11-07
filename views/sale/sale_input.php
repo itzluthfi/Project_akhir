@@ -1,6 +1,8 @@
 <?php
 require_once "/laragon/www/project_akhir/init.php";
 $items = $modelItem->getAllItem();
+$members = $modelMember->getAllMembers();
+$user_id = unserialize($_SESSION['user_login'])->user_id;
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ $items = $modelItem->getAllItem();
                         <option value="" disabled selected>Pilih Member</option>
                         <?php
                     foreach ($members as $member) {
-                        echo "<option value='{$member->id}'>{$member->name} - {$member->email}</option>";
+                        echo "<option value='{$member->id}'>{$member->id} - {$member->name} </option>";
                     }
                     ?>
                     </select>
@@ -55,7 +57,7 @@ $items = $modelItem->getAllItem();
                             <?php
                             foreach ($items as $item) {
                                 echo "<option value='{$item->item_id}' data-name='{$item->item_name}' data-price='{$item->item_price}'>
-                                {$item->item_name} - Rp{$item->item_price}
+                                {$item->item_id} - {$item->item_name} - Rp{$item->item_price}
                                 </option>";
                             }
                             ?>
@@ -146,6 +148,9 @@ $items = $modelItem->getAllItem();
                 <input type="hidden" name="sale_totalPrice" id="sale_totalPriceHidden" value="0">
                 <input type="hidden" name="sale_change" id="sale_changeHidden" value="0">
                 <input type="hidden" name="items" id="items">
+                <!-- Input hidden untuk member_id -->
+                <input type="hidden" name="id_member" id="member_id" value="">
+                <input type="hidden" name="id_user" id="user_id" value="<?= $user_id?>">
 
 
             </form>
@@ -176,6 +181,7 @@ $items = $modelItem->getAllItem();
     // Add item event
     document.getElementById('addBarangBtn').addEventListener('click', function() {
         const itemSelect = document.getElementById('itemSelect');
+        const memberSelect = document.getElementById('memberSelect');
         const jumlahInput = document.getElementById('jumlahInput');
         const itemTable = document.getElementById('itemTable').querySelector('tbody');
         const itemsInput = document.getElementById('items');
@@ -269,6 +275,41 @@ $items = $modelItem->getAllItem();
         document.getElementById('sale_changeHidden').value = change < 0 ? 0 : change;
         console.log("Change (hidden input):", document.getElementById('sale_changeHidden').value);
     }
+
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        // Reset member select
+        document.getElementById('memberSelect').value = '';
+
+        // Reset item select and quantity
+        document.getElementById('itemSelect').value = '';
+        document.getElementById('jumlahInput').value = '';
+
+        // Clear the item table
+        const itemTableBody = document.querySelector('#itemTable tbody');
+        itemTableBody.innerHTML = '';
+
+        // Reset hidden inputs
+        document.getElementById('sale_totalPriceHidden').value = '0';
+        document.getElementById('sale_changeHidden').value = '0';
+        document.getElementById('items').value = '[]';
+
+        // Reset total price and change displays
+        document.getElementById('sale_totalPrice').textContent = 'Rp 0';
+        document.getElementById('sale_change').textContent = 'Rp 0';
+
+        // Reset payment input
+        document.getElementById('sale_pay').value = '';
+
+        console.log('Semua form telah direset.');
+    });
+
+    // Update nilai input hidden member_id setiap kali pilihan berubah
+    document.getElementById('memberSelect').addEventListener('change', function() {
+        const memberSelect = document.getElementById('memberSelect');
+        const selectedMemberId = memberSelect.value;
+        const memberIdInput = document.getElementById('member_id');
+        memberIdInput.value = selectedMemberId; // Update input hidden dengan ID member yang dipilih
+    });
     </script>
 
 </body>
