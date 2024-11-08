@@ -3,6 +3,8 @@
     include "/laragon/www/project_akhir/auth_check.php"; 
 
     $obj_members = $modelMember->getAllMembers();
+
+    
 ?>
 
 <!DOCTYPE html>

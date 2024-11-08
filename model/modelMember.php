@@ -17,9 +17,9 @@ class modelMember {
     }
 
     public function initializeDefaultMembers() {
-        $this->addMember("John Doe", "08123456789", 100);
-        $this->addMember("Jane Smith", "08234567890", 150);
-        $this->addMember("Alice Johnson", "08345678901", 200);
+        $this->addMember("Brillian the king of php", "08123456789", 1000);
+        $this->addMember("Habib the strongest crocodile", "08234567890", 1500);
+        $this->addMember("Luthfi the most calm person", "08345678901", 2000);
     }
 
     public function addMember($name, $phone, $point) {

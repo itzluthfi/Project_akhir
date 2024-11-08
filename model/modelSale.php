@@ -38,12 +38,12 @@ class ModelSale {
         ];
         $this->addSale($items3, 20000, 0, 20000, "21-08-2022",3,3);
         //$this->deleteSale(2);
-        $items3 = [
-            new DetailSale(3, 2, "Item 2", 15000, 30),
-            new DetailSale(1, 2, "Item 3", 20000, 20),
-            new DetailSale(3, 1, "Item 1", 10000, 50),
-        ];
-        $this->addSale($items3, 20000, 4000, 16000, "22-08-2022",1,0);
+        // $items3 = [
+        //     new DetailSale(3, 2, "Item 2", 15000, 30),
+        //     new DetailSale(1, 2, "Item 3", 20000, 20),
+        //     new DetailSale(3, 1, "Item 1", 10000, 50),
+        // ];
+        // $this->addSale($items3, 20000, 4000, 16000, "22-08-2022",1,0);
 
     }
 

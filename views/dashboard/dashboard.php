@@ -47,7 +47,9 @@ $sales_totals_json = json_encode($sales_totals);
     <!-- Main container -->
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <?php include_once "/laragon/www/project_akhir/views/includes/sidebar.php"; ?>
+
+        <?php include $sidebar_file; ?>
+
 
         <!-- Main Content -->
         <div class="flex-1 p-8 overflow-y-auto h-[calc(100vh-4rem)]">
@@ -158,7 +160,7 @@ $sales_totals_json = json_encode($sales_totals);
                                         <?php echo htmlspecialchars($sale->sale_id); ?></td>
                                     <!-- <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($sale->sale_date); ?></td> -->
                                     <td class="w-1/4 py-3 px-4">
-                                        <?php $user = $modelUser->getUserById($sale->id_user); echo htmlspecialchars($user->user_username); ?>
+                                        <?php $user = $modelUser->getUserById($sale->id_user);$role = $modelRole->getRoleById($sale->id_user); echo htmlspecialchars("{$user->user_username} - [{$role->role_name}]"); ?>
                                     </td>
                                     <td class="w-1/4 py-3 px-4">
                                         <?php $member = $modelMember->getMemberById($sale->id_member); echo htmlspecialchars($member->name); ?>
@@ -174,11 +176,11 @@ $sales_totals_json = json_encode($sales_totals);
                                                 onclick="openModal('modal-<?php echo $sale->sale_id; ?>')">
                                                 Details
                                             </button>
-                                            <button
+                                            <!-- <button
                                                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
                                                 onclick="return confirmDelete(<?= $sale->sale_id ?>)">
                                                 <i class="fa-solid fa-trash"></i>
-                                            </button>
+                                            </button> -->
                                         </div>
 
                                     </td>

@@ -5,6 +5,8 @@ include "/laragon/www/project_akhir/auth_check.php";
  
 
  $obj_items = $modelItem->getAllItem();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +34,7 @@ include "/laragon/www/project_akhir/auth_check.php";
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include '../includes/sidebar.php'; ?>
+        <?php include $sidebar_file; ?>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">

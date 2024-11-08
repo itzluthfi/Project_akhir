@@ -51,13 +51,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                         // Simpan data user ke session
                         $_SESSION['user_login'] = serialize($user);
 
+                //  // Cek role pengguna dan menentukan sidebar yang sesuai
+                // switch ($user->role) {
+                //     case 'admin':
+                //         $sidebar_file = '../includes/sidebar_admin.php';
+                //         break;
+                //     case 'superadmin':
+                //         $sidebar_file = '../includes/sidebar_superadmin.php';
+                //         break;
+                //     case 'kasir':
+                //         $sidebar_file = '../includes/sidebar_kasir.php';
+                //         break;
+                //     default:
+                //         $sidebar_file = '../includes/sidebar.php'; // Sidebar default jika role tidak dikenal
+                //         break;
+                // }
+            
                             
                     // Jika "Remember Me" dicentang, simpan cookie yang berlaku selama 1 hari
                     if ($rememberMe) {
                         setcookie('user_login', serialize($user), time() + (86400), "/"); // 86400 detik = 1 hari
                     }
 
-                    echo "<script>alert('Login berhasil'); window.location.href='/project_akhir/views/role/role_list.php';</script>";
+                    echo "<script>alert('Login berhasil'); window.location.href='/project_akhir/views/dashboard/dashboard.php';</script>";
 
                         return;
                     }
