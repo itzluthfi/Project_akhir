@@ -18,9 +18,12 @@ class modelItem {
     }
 
     public function initialiazeDefaultItem() {
-        $this->addItem("Silverqueen",19000,20);
-        $this->addItem("chimory",10000,17);
-        $this->addItem("sari roti",5000,14);
+        $this->addItem("Latte",10000,20);
+        $this->addItem("Expresso",8000,17);
+        $this->addItem("Caramel",12000,14);
+        $this->addItem("Gula-Aren",11000,14);
+        $this->addItem("Mocha",14000,14);
+        $this->addItem("Cappuccino",15000,14);
     }
     public function addItem($item_name, $item_price, $item_stock) {
         error_log("Adding Item: Name=iItem_name, price=$item_price, stock=$item_stock");
