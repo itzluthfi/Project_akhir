@@ -12,6 +12,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+<style>
+.sign-in-button:hover {
+    background-color: #de7d1d;
+
+}
+
+.forgot-password a:hover {
+    color: #de7d1d;
+    font-style: underline;
+}
+</style>
 
 <body class="bg-gray-100">
 
@@ -20,7 +31,7 @@
 
         <!-- Background Video -->
         <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 opacity-75">
-            <source src="public/img/bglive1.mp4" type="video/mp4">
+            <source src="public/img/bg-coffe2.mp4" type="video/mp4">
         </video>
 
         <!-- Overlay to darken video -->
@@ -30,8 +41,10 @@
         <div class="relative flex shadow-lg rounded-lg overflow-hidden bg-white z-20 opacity-90 transition-all">
             <!-- Login form -->
             <div class="flex flex-col justify-center p-8" style="width: 24rem; height: 32rem;">
-                <h1 class="text-2xl font-bold text-center text-purple-700 italic">Welcome To </h1>
-                <h1 class="text-4xl font-bold text-center text-purple-700">My Point Of Sale</h1>
+                <h1 class="text-2xl font-bold text-center text-purple-700 italic" style="color: #b6895b;">
+                    Welcome To </h1>
+                <h1 class="text-4xl font-bold text-center text-purple-700" style="color: #b6895b;">My Point
+                    Of Sale</h1>
                 <p class="text-gray-500 text-center italic">Please enter your details!</p>
 
                 <!-- Form -->
@@ -50,15 +63,17 @@
                             class="block w-full border border-gray-300 rounded-md focus:border-purple-700 focus:ring-1 focus:ring-purple-700 py-2 px-3 text-gray-700 transition duration-200" />
                     </div>
 
-                    <div class="mb-4 flex items-center">
+                    <div class="mb-4 flex items-center forgot-password">
                         <input id="remember" name="remember_me" type="checkbox" class="mr-2" />
                         <label for="remember" class="text-sm font-semibold">Remember me for 1 day</label>
-                        <a href="#" class="ml-auto text-sm font-semibold text-purple-700 hover:underline">Forgot
+                        <a href="#" class="ml-auto text-sm font-semibold text-purple-700 hover:underline"
+                            style="color: #b6895b;">Forgot
                             password?</a>
                     </div>
 
                     <button type="submit"
-                        class="  w-full text-center text-white bg-purple-700 hover:bg-purple-900 transition duration-200 px-4 py-2 rounded-md">Sign
+                        class="sign-in-button  w-full text-center text-white  transition duration-200 px-4 py-2 rounded-md"
+                        style="background-color: #b6895b;">Sign
                         in</button>
                 </form>
 
@@ -72,7 +87,7 @@
             <div class="flex items-center justify-center bg-gray-300 relative transition-opacity opacity-70 hover:opacity-100 duration-1000"
                 style="width: 24rem; height: 32rem;">
                 <video autoplay muted loop class="object-cover w-full h-full  ">
-                    <source src="public/img/bglive1.mp4" type="video/mp4">
+                    <source src="public/img/bg-coffe2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>

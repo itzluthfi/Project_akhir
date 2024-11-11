@@ -16,7 +16,7 @@ $user_id = unserialize($_SESSION['user_login'])->user_id;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal max-h-screen">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
     <?php include_once '../includes/navbar.php'; ?>

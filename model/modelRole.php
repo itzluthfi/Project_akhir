@@ -20,6 +20,7 @@ class modelRole {
 
     public function initialiazeDefaultRole() {
         $this->addRole("Admin", "Administrator", 1,200000);
+        $this->addRole("Manager", "Manage Admin", 0,5000000);
         $this->addRole("Superadmin", "Owner", 1,15000000);
         $this->addRole("Kasir", "Pembayaran", 1,1000000);
     }

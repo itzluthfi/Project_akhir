@@ -23,7 +23,7 @@
 }
 </style>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
     <?php include '../includes/navbar.php'; ?>
@@ -36,7 +36,7 @@
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <!-- Member Management -->
-            <div class="container mx-auto">
+            <div class="container mx-auto overflow-y-auto h-[calc(100vh-4rem)]">
                 <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Members</h1>
 
                 <!-- Button to Insert New Member -->

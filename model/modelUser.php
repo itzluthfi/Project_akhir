@@ -21,7 +21,7 @@ class modelUser{
     public function initialiazeDefaultUser() {
         $this->addUser("luthfi","luthfi123",1);
         $this->addUser("habib","habib123",3);
-        $this->addUser("adam","adam123",2);
+        $this->addUser("adam","adam123",4);
     }
     
     public function addUser($user_username, $user_password, $id_role) {

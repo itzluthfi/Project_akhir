@@ -37,7 +37,7 @@ $sales = $modelSale->getAllSales();
     </script>
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
     <?php include '../includes/navbar.php'; ?>
@@ -48,16 +48,18 @@ $sales = $modelSale->getAllSales();
         <?php include '../includes/sidebar.php'; ?>
 
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-8 overflow-y-auto h-[calc(100vh-4rem)]">
 
             <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Sales</h1>
 
 
             <!-- Main Container for Transactions -->
             <div class="container mx-auto">
+                <input id="search-input" type="text" name="query" placeholder="Search By Name Or Id"
+                    class="p-2 border border-gray-300 rounded-xl w-Search-Input " style="width: 26rem;" />
                 <!-- sale Table -->
                 <div class="bg-white shadow-md  my-6">
-                    <table class="min-w-full bg-white grid-cols-1 rounded-xl">
+                    <table class="min-w-full bg-white table-auto mt-4 rounded-lg overflow-hidden shadow-md">
                         <thead class="bg-gray-800 text-white">
                             <tr>
                                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID sale</th>
@@ -129,47 +131,94 @@ $sales = $modelSale->getAllSales();
 
     <!-- Modal untuk detail sale -->
     <?php if (!empty($sales)) {
-        foreach ($sales as $sale) { ?>
+    foreach ($sales as $sale) { ?>
     <div id="modal-<?php echo $sale->sale_id; ?>"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-        <div class="relative top-20 mx-auto p-5 border w-1/2 shadow-lg rounded-md bg-white">
-            <div class="mt-3 text-center">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Detail sale:
-                    <?php echo htmlspecialchars($sale->sale_id); ?></h3>
-                <div class="mt-2">
-                    <table class="min-w-full bg-white overflow-y-auto overflow-x-auto">
-                        <thead class="bg-gray-800 text-white">
+        <div
+            class="relative top-20 mx-auto p-8 border w-11/12 md:w-3/4 lg:w-1/2 xl:w-1/3 shadow-xl rounded-lg bg-white transition-all duration-300 ease-in-out transform">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-2xl font-semibold text-gray-900">Detail Penjualan
+                    #<?php echo htmlspecialchars($sale->sale_id); ?></h3>
+                <button class="text-gray-500 hover:text-gray-700"
+                    onclick="closeModal('modal-<?php echo $sale->sale_id; ?>')">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <!-- Informasi Sales -->
+                <div class="flex justify-between">
+                    <div class="font-semibold text-gray-700">User</div>
+                    <div><?php 
+                        $user = $modelUser->getUserById($sale->id_user);
+                        $role = $modelRole->getRoleById($sale->id_user);
+                        echo htmlspecialchars("{$user->user_username} - [{$role->role_name}]");
+                    ?></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <div class="font-semibold text-gray-700">Member</div>
+                    <div><?php
+                        $member = $modelMember->getMemberById($sale->id_member); 
+                        echo htmlspecialchars($member->name);
+                    ?></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <div class="font-semibold text-gray-700">Total Harga</div>
+                    <div><?php echo htmlspecialchars($sale->sale_totalPrice); ?></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <div class="font-semibold text-gray-700">Dibayar</div>
+                    <div><?php echo htmlspecialchars($sale->sale_pay); ?></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <div class="font-semibold text-gray-700">Kembalian</div>
+                    <div><?php echo htmlspecialchars($sale->sale_change); ?></div>
+                </div>
+
+                <!-- Table Detail Barang -->
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-gray-800">Detail Barang</h4>
+                    <table class="min-w-full bg-white table-auto mt-4 rounded-lg overflow-hidden shadow-md">
+                        <thead class="bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white">
                             <tr>
-                                <th class="w-1/8 py-3 px-4 uppercase font-semibold text-sm">Id</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Barang</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Harga</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Jumlah</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Sub Total</th>
+                                <th class="py-3 px-4 text-left">ID</th>
+                                <th class="py-3 px-4 text-left">Barang</th>
+                                <th class="py-3 px-4 text-right">Harga</th>
+                                <th class="py-3 px-4 text-right">Jumlah</th>
+                                <th class="py-3 px-4 text-right">Sub Total</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
                             <?php foreach ($sale->detailSale as $detail) { ?>
-                            <tr class="text-center">
-                                <td class="py-3 px-2"><?php echo htmlspecialchars($detail->item_id); ?></td>
-                                <td class="py-3 px-3"><?php echo htmlspecialchars($detail->item_name); ?></td>
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($detail->item_price); ?></td>
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($detail->item_qty); ?></td>
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($detail->subtotal); ?></td>
+                            <tr class="hover:bg-gray-100 transition-all duration-300">
+                                <td class="py-2 px-4"><?php echo htmlspecialchars($detail->item_id); ?></td>
+                                <td class="py-2 px-4"><?php echo htmlspecialchars($detail->item_name); ?></td>
+                                <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($detail->item_price); ?>
+                                </td>
+                                <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($detail->item_qty); ?></td>
+                                <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($detail->subtotal); ?></td>
                             </tr>
                             <?php } ?>
                         </tbody>
                     </table>
                 </div>
-                <div class="items-center px-4 py-3">
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onclick="closeModal('modal-<?php echo $sale->sale_id; ?>')">
-                        Close
-                    </button>
-                </div>
+            </div>
+
+            <!-- Close Button -->
+            <div class="mt-6 text-center">
+                <button class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-200"
+                    onclick="closeModal('modal-<?php echo $sale->sale_id; ?>')">
+                    Close
+                </button>
             </div>
         </div>
     </div>
     <?php } } ?>
+
+
 
     <script>
     // delete sale

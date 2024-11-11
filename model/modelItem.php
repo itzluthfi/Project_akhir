@@ -13,21 +13,21 @@ class modelItem {
             
         } else {
             $this->initialiazeDefaultItem();
-            $this->nextId = 4; // Misalnya, jika memiliki 3 Item default
+            $this->nextId = 7; // Misalnya, jika memiliki 3 Item default
         }
     }
 
     public function initialiazeDefaultItem() {
-        $this->addItem("Latte",10000,20);
-        $this->addItem("Expresso",8000,17);
-        $this->addItem("Caramel",12000,14);
-        $this->addItem("Gula-Aren",11000,14);
-        $this->addItem("Mocha",14000,14);
-        $this->addItem("Cappuccino",15000,14);
+        $this->addItem("Latte",10000,20,4);
+        $this->addItem("Expresso",8000,17,5);
+        $this->addItem("Caramel",12000,14,0);
+        $this->addItem("Gula-Aren",11000,14,5);
+        $this->addItem("Mocha",14000,14,3);
+        $this->addItem("Cappuccino",15000,14,5);
     }
-    public function addItem($item_name, $item_price, $item_stock) {
+    public function addItem($item_name, $item_price, $item_stock,$item_star) {
         error_log("Adding Item: Name=iItem_name, price=$item_price, stock=$item_stock");
-        $item = new Item($this->nextId, $item_name, $item_price, $item_stock);
+        $item = new Item($this->nextId, $item_name, $item_price, $item_stock,$item_star);
         $this->items[] = $item;
         $_SESSION['lastItemId'] = $this->nextId; // Simpan ID terakhir yang digunakan
         $this->nextId++; // increment

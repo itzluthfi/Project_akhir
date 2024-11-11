@@ -27,7 +27,7 @@ include "/laragon/www/project_akhir/auth_check.php";
 }
 </style>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
     <?php include_once '/laragon/www/project_akhir/views/includes/navbar.php'; ?>
@@ -39,9 +39,9 @@ include "/laragon/www/project_akhir/auth_check.php";
 
 
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-8 ">
             <!-- Your main content goes here -->
-            <div class="container mx-auto">
+            <div class="container mx-auto overflow-y-auto h-[calc(100vh-4rem)]">
 
                 <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Role</h1>
 
@@ -81,15 +81,17 @@ include "/laragon/www/project_akhir/auth_check.php";
                                 <td class="w-1/4 py-3 px-4"><?= $role->role_description ?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <span
-                                        class="<?= $role->role_status ? 'text-green-500' : 'text-red-500' ?> bg-gray-200 rounded-full px-3 py-1">
-                                        <?= $role->role_status ? "active" : "non active" ?>
+                                        class="<?= $role->role_status ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' ?> 
+    inline-flex items-center justify-center px-4 py-1 rounded-full text-sm font-semibold shadow-sm transition-all duration-200 hover:shadow-md hover:scale-105">
+                                        <?= $role->role_status ? "Active" : "Non Active" ?>
                                     </span>
+
                                 </td>
 
 
 
 
-                                <td class="w-1/6 py-3 px-4"><?= $role->role_gaji ?></td>
+                                <td class="w-1/6 py-3 px-4">RP. <?= number_format($role->role_gaji )?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">

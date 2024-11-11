@@ -1,6 +1,9 @@
 <?php 
 require_once "/laragon/www/project_akhir/init.php";
 $allMenu = $modelItem->getAllItem();
+
+$carts = $modelCart->getCartsByMemberId(1);
+
 ?>
 
 <!DOCTYPE html>
@@ -22,11 +25,176 @@ $allMenu = $modelItem->getAllItem();
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- tailwind -->
-
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
     <!-- my style -->
     <link rel="stylesheet" href="css/style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+    /* Shopping Cart Styling */
+    .shopping-cart {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+    }
+
+    .shopping-cart h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        margin-left: 120px;
+    }
+
+    /* Cart Items */
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        /* Mengurangi jarak antar item */
+        max-height: 410px;
+        max-width: 420px;
+        /* Tentukan tinggi maksimum area keranjang */
+        overflow-y: auto;
+        overflow-x: auto;
+        /* Menambahkan scroll vertikal jika diperlukan */
+        padding-right: 10px;
+        /* Memberikan jarak jika scrollbar muncul */
+    }
+
+    .shopping-cart .cart-item {
+        margin: 4px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        /* Menyelaraskan item secara vertikal */
+        padding: 10px;
+        /* Mengurangi padding antar item */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+
+    }
+
+    .cart-item img {
+        max-width: 80px;
+        /* Mengurangi ukuran gambar */
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .item-detail {
+        flex-grow: 1;
+        margin-left: 10px;
+    }
+
+    .item-detail h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+        word-wrap: break-word;
+    }
+
+    .item-price {
+        font-size: 14px;
+        color: #777;
+        margin-top: 5px;
+    }
+
+    .item-quantity {
+        display: flex;
+        gap: 5px;
+        /* Mengurangi jarak antar tombol kuantitas */
+        margin-top: 5px;
+    }
+
+    .item-quantity button {
+        padding: 5px 8px;
+        /* Menyesuaikan ukuran tombol */
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .remove-item {
+        font-size: 18px;
+        cursor: pointer;
+        color: #d9534f;
+        margin-left: -40px;
+    }
+
+    /* Total Price Section */
+    .total-price {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    /* Checkout Button */
+    .checkout-button {
+        width: 75%;
+        padding: 10px;
+        background-color: #b6895b;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+    .checkout-button:hover {
+        background-color: #c3792f;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .cart-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cart-item img {
+            max-width: 80px;
+        }
+
+        .item-detail h3 {
+            font-size: 14px;
+        }
+
+        .item-quantity {
+            flex-direction: column;
+        }
+
+        .remove-item {
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+
+        .total-price {
+            font-size: 16px;
+        }
+    }
+
+    #login-button {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #b6895b;
+        border-radius: 5px;
+        border-color: #fff;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #login-button:hover {
+        background-color: #c3792f;
+        color: black;
+
+    }
+    </style>
+
 </head>
 
 <body>
@@ -44,54 +212,72 @@ $allMenu = $modelItem->getAllItem();
 
         <div class="navbar-extra">
             <a href="#" id="search-button"><i data-feather="search"></i>
-                <a href="#" id="shopping-cart-button"><i data-feather="shopping-cart"></i>
-                    <a href="#" id="hamburger-menu"><i data-feather="menu"></i>
-                    </a>
+                <a href="#" id="shopping-cart-button">
+                    <i data-feather="shopping-cart"></i>
+                    <span class="quanty-badge" style="color: #f7b80a;">
+                        <?= count($carts) ?> </a>
+                <a href="#" id="hamburger-menu"><i data-feather="menu"></i>
+                </a>
+                <a id="login-button" href="/project_akhir/views/warkop_ui/login_member.php">Login</a>
         </div>
         <!-- search form start -->
         <div class="search-form">
             <input type="search" id="search-box" placeholder="search here...">
             <label for="search-box"><i data-feather="search"></i></label>
         </div>
-
         <!-- search form end -->
 
-        <!-- shopping cart start -->
-        <div class="shopping-cart">
-            <div class="cart-item">
-                <img src="img/products/1.jpg" alt="product 1">
-                <div class="item-detail">
-                    <h3>product 1</h3>
-                    <div class="item-price">IDR 25K</div>
+        <!-- Shopping Cart Start -->
+        <div class="shopping-cart" id="shopping-cart">
+            <h2>Shopping Cart</h2>
+            <div class="cart-items">
+                <?php if (!empty($carts)) {
+                foreach ($carts as $cartItem) { ?>
+                <div class="cart-item">
+                    <div class="cart-item-img">
+                        <img src="img/menu/<?= $cartItem->item_name ?>.jpg"
+                            alt="<?= htmlspecialchars($cartItem->item_name) ?>" />
+                    </div>
+                    <div class="item-detail">
+                        <h3><?= htmlspecialchars($cartItem->item_name) ?></h3>
+                        <div class="item-price">IDR <?= number_format($cartItem->item_price, 0, ',', '.') ?></div>
+                        <div class="item-quantity">
+                            <button onclick="decreaseQuantity(<?= $cartItem->id ?>)">-</button>
+                            <span id="quantity-<?= $cartItem->id ?>"><?= htmlspecialchars($cartItem->quantity) ?></span>
+                            <button onclick="increaseQuantity(<?= $cartItem->id ?>)">+</button>
+                        </div>
+                    </div>
+                    <!-- Ikon Trash-2 menggunakan SVG -->
+                    <button class="remove-item" onclick="removeItem(<?= $cartItem->id ?>)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="2" class="feather feather-trash-2">
+                            <path d="M3 6h18M19 6l-1 14H6L5 6m2 0h12M10 11v6m4-6v6"></path>
+                        </svg>
+                    </button>
                 </div>
-                <I data-feather="trash-2" class="remove-item"></I>
+                <?php } 
+            } else { ?>
+                <p>Your cart is empty.</p>
+                <?php } ?>
             </div>
-            <div class="cart-item">
-                <img src="img/products/1.jpg" alt="product 1">
-                <div class="item-detail">
-                    <h3>product 1</h3>
-                    <div class="item-price">IDR 25K</div>
-                </div>
-                <I data-feather="trash-2" class="remove-item"></I>
+
+            <!-- Total Harga -->
+            <div class="total-price">
+                <strong>Total Harga:</strong>
+                <span id="totalPrice">
+                    Rp <?= number_format(array_sum(array_map(function($item) {
+                    return $item->item_price * $item->quantity;
+                }, $carts)), 0, ',', '.') ?>
+                </span>
             </div>
-            <div class="cart-item">
-                <img src="img/products/1.jpg" alt="product 1">
-                <div class="item-detail">
-                    <h3>product 1</h3>
-                    <div class="item-price">IDR 25K</div>
-                </div>
-                <I data-feather="trash-2" class="remove-item"></I>
-            </div>
-            <div class="cart-item">
-                <img src="img/products/1.jpg" alt="product 1">
-                <div class="item-detail">
-                    <h3>product 1</h3>
-                    <div class="item-price">IDR 25K</div>
-                </div>
-                <I data-feather="trash-2" class="remove-item"></I>
-            </div>
+
+            <!-- Tombol Checkout -->
+            <button onclick="checkout()" class="checkout-button" id="checkout-button">Checkout</button>
         </div>
-        <!-- shopping cart end -->
+        <!-- Shopping Cart End -->
+
+
+
 
 
 
@@ -102,7 +288,8 @@ $allMenu = $modelItem->getAllItem();
     <section class="hero" id="home">
         <main class="content">
             <h1>Ada Masalah? Ya <span>Ngopi</span> Aja</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, doloribus.</p>
+            <p>Jangan biarkan stres menguasai, mari kita
+                ngobrol sambil ngopi!</p>
             <a href="#" class="cta">beli sekarang</a>
         </main>
     </section>
@@ -159,7 +346,7 @@ $allMenu = $modelItem->getAllItem();
 
 
 
-    <!-- menu section end -->
+
 
 
 
@@ -171,100 +358,38 @@ $allMenu = $modelItem->getAllItem();
             Anda di sini!</p>
 
         <div class="row">
+
+            <?php foreach ($allMenu as $menu) {  ?>
             <div class="product-card">
                 <div class="product-icons">
                     <a href="#"><i data-feather="shopping-cart"></i></a>
-                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+                    <a href="#" class="item-detail-button" data-star="<?= $menu->item_star ?>"><i
+                            data-feather="eye"></i></a>
+
                 </div>
                 <div class="product-image">
-                    <img src="img/products/1.jpg" alt="product 1">
+                    <img src="img/menu/<?= $menu->item_name ?>.jpg" alt="product 1">
                 </div>
                 <div class="product-content">
-                    <h3>coffe beans 1</h3>
+                    <h3>coffe <?= $menu->item_name ?></h3>
                     <div class="product-stars">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
+                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                        <i data-feather="star" <?= ($i <= $menu->item_star) ? 'class="star-full"' : ''; ?>></i>
+                        <?php } ?>
                     </div>
 
-                    <div class="product-price">IDR 25K <span>IDR 50K</span></div>
-                </div>
 
-            </div>
-            <div class="product-card">
-                <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
-                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-                </div>
-                <div class="product-image">
-                    <img src="img/products/1.jpg" alt="product 1">
-                </div>
-                <div class="product-content">
-                    <h3>coffe beans 1</h3>
-                    <div class="product-stars">
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star"></i>
+                    <div class="product-price">
+                        RP. <?= ceil($menu->item_price * 0.8) ?>
+                        <span>RP. <?= $menu->item_price ?></span>
                     </div>
 
-                    <div class="product-price">IDR 25K <span>IDR 50K</span></div>
-                </div>
 
+                </div>
             </div>
-            <div class="product-card">
-                <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
-                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-                </div>
-                <div class="product-image">
-                    <img src="img/products/1.jpg" alt="product 1">
-                </div>
-                <div class="product-content">
-                    <h3>coffe beans 2</h3>
-                    <div class="product-stars">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-
-                    <div class="product-price">IDR 25K <span>IDR 50K</span></div>
-                </div>
-
-            </div>
-            <div class="product-card">
-                <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
-                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-                </div>
-                <div class="product-image">
-                    <img src="img/products/1.jpg" alt="product 1">
-                </div>
-                <div class="product-content">
-                    <h3>coffe beans 3</h3>
-                    <div class="product-stars">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-
-                    <div class="product-price">IDR 25K <span>IDR 50K</span></div>
-                </div>
-
-            </div>
-
-
+            <?php } ?>
 
         </div>
-
-
 
     </section>
 
@@ -303,8 +428,9 @@ $allMenu = $modelItem->getAllItem();
             </form>
         </div>
     </section>
-
     <!-- contact section end -->
+
+
 
     <!-- footer start -->
     <footer>
@@ -338,26 +464,31 @@ $allMenu = $modelItem->getAllItem();
         <div class="modal-container">
             <a href="#" class="close-icon"><i data-feather="x"></i></a>
             <div class="modal-content">
-                <img src="img/products/1.jpg" alt="product 1">
+                <img src="img/products/1.jpg" alt="<?= htmlspecialchars($menu->item_name) ?>">
                 <div class="product-content">
-                    <h3>product 1</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt maiores, qui explicabo atque
-                        aut accusantium suscipit ullam ut ducimus vero a, impedit reprehenderit unde debitis!</p>
+                    <h3><?= htmlspecialchars($menu->item_name) ?></h3>
+                    <!-- Deskripsi manual -->
+                    <p>Ini adalah deskripsi produk manual yang bisa diubah sesuai keinginan. Misalnya, deskripsi kopi
+                        yang sangat enak dan nikmat.</p>
                     <div class="product-stars">
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star" class="star-full"></i>
-                        <i data-feather="star"></i>
+                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                        <i data-feather="star" <?= ($i <= $menu->item_star) ? 'class="star-full"' : '' ?>></i>
+                        <?php } ?>
                     </div>
 
-                    <div class="product-price">IDR 25K <span>IDR 50K</span></div>
-                    <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+                    <div class="product-price" style="font-size: 1.3rem;font-weight: bold;">
+                        RP. <?= ceil($menu->item_price * 0.8) ?>
+                        <span style="text-decoration: line-through;
+                        font-weight: lighter;font-size: 1rem;">RP. <?= $menu->item_price ?></span>
+                    </div>
+
+                    <a href="#"><i data-feather="shopping-cart rounded"></i> <span>add to cart</span></a>
                 </div>
             </div>
         </div>
     </div>
     <!-- modal box item details end -->
+
 
     <!-- contact form-->
     <script>
@@ -380,11 +511,89 @@ $allMenu = $modelItem->getAllItem();
         window.open(whatsappURL, '_blank');
     }
     </script>
+    <script>
+    function decreaseQuantity(id) {
+        const quantityElement = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityElement.textContent);
+        if (quantity > 1) {
+            quantityElement.textContent = quantity - 1;
+            updateTotalPrice();
+        }
+    }
+
+    function increaseQuantity(id) {
+        const quantityElement = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantityElement.textContent = quantity + 1;
+        updateTotalPrice();
+    }
+
+    function updateQuantity(id, delta) {
+        const quantitySpan = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantitySpan.textContent) + delta;
+        if (quantity < 1) return; // Cegah jumlah negatif atau nol
+
+        fetch(`/project_akhir/response_input.php`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id,
+                    quantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    quantitySpan.textContent = quantity;
+                    document.getElementById(`price-${id}`).textContent = data.newPrice;
+                    document.getElementById(`totalPrice`).textContent = data.totalPrice;
+                }
+            });
+    }
+
+    function removeItem(id) {
+        fetch(`/project_akhir/response_input.php`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`cart-item-${id}`).remove();
+                    document.getElementById(`totalPrice`).textContent = data.totalPrice;
+                }
+            });
+    }
+
+    function checkout() {
+        fetch(`/project_akhir/response_input.php`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Checkout berhasil!");
+                    document.getElementById("shopping-cart").innerHTML = "<p>Your cart is empty.</p>";
+                }
+            });
+    }
+    </script>
 
     <!-- feather icon -->
     <script>
     feather.replace();
     </script>
+
     <!-- my javascript -->
     <script src="js/script.js"></script>
 </body>

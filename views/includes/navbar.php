@@ -12,7 +12,7 @@ $user_role = $modelRole->getRoleById(unserialize($_SESSION['user_login'])->id_ro
             Point Of Sale
         </div>
         <div class="relative flex items-center text-white mr-3">
-            
+
             <!-- Tempat untuk foto berbentuk lingkaran -->
             <div class=" group">
 

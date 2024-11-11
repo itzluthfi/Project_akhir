@@ -43,24 +43,29 @@ document.addEventListener("click", function (e) {
 // modal box
 const itemdetailmodal = document.querySelector("#item-detail-modal");
 const itemdetailbuttons = document.querySelectorAll(".item-detail-button");
+const productStars = itemdetailmodal.querySelector(".product-stars");
 
 itemdetailbuttons.forEach((btn) => {
   btn.onclick = (e) => {
-    itemdetailmodal.style.display = "flex";
     e.preventDefault();
+    const starCount = parseInt(btn.getAttribute("data-star"));
+
+    // Hapus bintang yang ada dan tambahkan bintang sesuai jumlah 'starCount'
+    productStars.innerHTML = ""; // Kosongkan elemen
+
+    for (let i = 1; i <= 5; i++) {
+      const starIcon = document.createElement("i");
+      starIcon.setAttribute("data-feather", "star");
+
+      if (i <= starCount) {
+        starIcon.classList.add("star-full"); // Tambahkan kelas star-full pada bintang terisi
+      }
+
+      productStars.appendChild(starIcon); // Tambahkan elemen bintang ke dalam productStars
+    }
+
+    feather.replace(); // Refresh Feather Icons agar ikon bintang tampil
+
+    itemdetailmodal.style.display = "flex"; // Tampilkan modal
   };
 });
-
-// klik tombol close modal
-document.querySelector(".modal .close-icon").onclick = (e) => {
-  itemdetailmodal.style.display = "none";
-  e.preventDefault();
-};
-
-// klik diluar modal
-
-window.onclick = (e) => {
-  if (e.target === itemdetailmodal) {
-    itemdetailmodal.style.display = "none";
-  }
-};

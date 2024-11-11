@@ -38,6 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $saleController = new ControllerSale();
             $saleController->handleAction($action);
             break;
+
+        case 'cart':
+            require_once 'controller/ControllerCart.php';
+            $cartController = new ControllerCart();
+            $cartController->handleAction($action);
+            break;
             
         case 'login':
                 $username = $_POST["username_login"];

@@ -24,7 +24,7 @@ $obj_user = $modelUser->getAllUser();
 }
 </style>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
     <?php include_once '/laragon/www/project_akhir/views/includes/navbar.php'; ?>
@@ -37,7 +37,7 @@ $obj_user = $modelUser->getAllUser();
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <!-- Your main content goes here -->
-            <div class="container mx-auto">
+            <div class="container mx-auto overflow-y-auto h-[calc(100vh-4rem)]">
                 <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage User</h1>
 
                 <!-- Button to Insert New User -->
@@ -58,8 +58,9 @@ $obj_user = $modelUser->getAllUser();
                             <tr>
                                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">User ID</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Username</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Password</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Password</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Role</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Salary</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
                             </tr>
                         </thead>
@@ -69,12 +70,15 @@ $obj_user = $modelUser->getAllUser();
 
                             <?php foreach($obj_user as $user){ 
                                 $user_role = $modelRole->getRoleById($user->id_role);
+                                
                             ?>
                             <tr class="text-center">
-                                <td class="py-3 px-4 text-blue-600"><?= $user->user_id ?></td>
+                                <td class="w-1/12 py-3 px-4 text-blue-600"><?= $user->user_id ?></td>
                                 <td class="w-1/6 py-3 px-4"><?= $user->user_username ?></td>
-                                <td class="w-1/4 py-3 px-4"><?= $user->user_password ?></td>
+                                <td class="w-1/6 py-3 px-4"><?= $user->user_password ?></td>
                                 <td class="w-1/6 py-3 px-4"><?= $user_role->role_name ?></td>
+                                <td class="w-1/6 py-3 px-4">
+                                    RP. <?=   number_format($user_role->role_gaji) ?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <button
                                         class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded mr-2">

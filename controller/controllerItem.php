@@ -14,7 +14,8 @@ class ControllerItem {
                 $item_name = $_POST['item_name'];
                 $item_price = $_POST['item_price'];
                 $item_stock = $_POST['item_stock'];
-                if($this->modelItem->addItem($item_name, $item_price, $item_stock)){
+                $item_star = $_POST['item_star'];
+                if($this->modelItem->addItem($item_name, $item_price, $item_stock,$item_star)){
 
                     $message = "Item added successfully!";
                 }else{

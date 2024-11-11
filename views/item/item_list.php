@@ -26,7 +26,7 @@ include "/laragon/www/project_akhir/auth_check.php";
 }
 </style>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
     <?php include '../includes/navbar.php'; ?>
@@ -39,9 +39,9 @@ include "/laragon/www/project_akhir/auth_check.php";
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <!-- Your main content goes here -->
-            <div class="container mx-auto">
-                <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Item</h1>
+            <div class="container mx-auto overflow-y-auto h-[calc(100vh-4rem)] mb-4">
 
+                <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Item</h1>
                 <!-- Button to Insert New Item -->
                 <div class="mb-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -50,6 +50,7 @@ include "/laragon/www/project_akhir/auth_check.php";
                         <a href="./item_input.php">Add New Item</a>
                     </button>
                 </div>
+                <!-- search form -->
                 <input id="search-input" type="text" name="query" placeholder="Search By Name Or Id"
                     class="p-2 border border-gray-300 rounded-xl w-Search-Input " />
                 <!-- Items Table -->
@@ -60,8 +61,9 @@ include "/laragon/www/project_akhir/auth_check.php";
                             <tr>
                                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">Item ID</th>
                                 <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Item Name</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Item Price</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Item Price</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Item Stock</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Item Star</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
                             </tr>
 
@@ -73,9 +75,12 @@ include "/laragon/www/project_akhir/auth_check.php";
                             <tr class="text-center">
                                 <td class="py-3 px-4 text-blue-600"><?= $item->item_id ?></td>
                                 <td class="w-1/4 py-3 px-4"><?= $item->item_name ?></td>
-                                <td class="w-1/4 py-3 px-4"><?= $item->item_price ?></td>
+                                <td class="w-1/6 py-3 px-4"><?= $item->item_price ?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <?= $item->item_stock == 0 ? "habis" : $item->item_stock ?>
+                                </td>
+                                <td class="w-1/6 py-3 px-4">
+                                    <?= $item->item_star?>
                                 </td>
                                 <td class="w-1/6 py-3 px-4">
                                     <button

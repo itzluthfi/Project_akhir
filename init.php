@@ -6,6 +6,7 @@ include_once "model/modelItem.php";
 include_once "model/modelUser.php";
 include_once "model/modelSale.php";
 include_once "model/modelMember.php";
+include_once "model/modelCart.php";
 // initiate
 //role
 $modelRole = new modelRole();
@@ -13,6 +14,7 @@ $modelItem = new modelItem();
 $modelUser = new modelUser();
 $modelSale = new modelSale();
 $modelMember = new modelMember();
+$modelCart = new modelCart();
 
 
 //batasi akses
