@@ -43,13 +43,12 @@
             <div class="flex flex-col justify-center p-8" style="width: 24rem; height: 32rem;">
                 <h1 class="text-2xl font-bold text-center text-purple-700 italic" style="color: #b6895b;">
                     Welcome To </h1>
-                <h1 class="text-4xl font-bold text-center text-purple-700" style="color: #b6895b;">My Point
-                    Of Sale</h1>
-                <p class="text-gray-500 text-center italic">Please enter your details!</p>
+                <h1 class="text-4xl font-bold text-center text-purple-700" style="color: #b6895b;">Warkop MJ</h1>
+                <p class="text-gray-500 text-center italic">Please enter your details Member!</p>
 
                 <!-- Form -->
                 <form class="mt-6 opacity-65 hover:opacity-100  transition-opacity duration-300"
-                    action="/project_akhir/response_input.php?modul=login&fitur=" method="POST">
+                    action="/project_akhir/response_input.php?modul=login&fitur=member" method="POST">
                     <div class="mb-4">
                         <label class="block text-sm font-semibold mb-1" for="username">Username</label>
                         <input id="username" type="text" name="username_login" placeholder="Enter your Username"

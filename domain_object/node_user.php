@@ -4,7 +4,6 @@ class User {
     public $user_id;
     public $user_username;
     public $user_password;
-    // public $user_role;
     public $id_role;
 
     // public function __construct($user_id,$user_username,$user_password,$user_role)

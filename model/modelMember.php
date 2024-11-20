@@ -17,14 +17,14 @@ class modelMember {
     }
 
     public function initializeDefaultMembers() {
-        $this->addMember("Brillian the king of php", "08123456789", 1000);
-        $this->addMember("Habib the strongest crocodile", "08234567890", 1500);
-        $this->addMember("Luthfi the most calm person", "08345678901", 2000);
+        $this->addMember("Brillian","brillian123", "08123456789", 1000);
+        $this->addMember("Habib","habibin123", "08234567890", 1500);
+        $this->addMember("Luthfi","luppy123", "08345678901", 2000);
     }
 
-    public function addMember($name, $phone, $point) {
+    public function addMember($name,$password, $phone, $point) {
         error_log("Adding Member: Name=$name, Phone=$phone, Point=$point");
-        $member = new Member($this->nextId, $name, $phone, $point);
+        $member = new Member($this->nextId, $name, $password,$phone, $point);
         $this->members[] = $member;
         $_SESSION['lastMemberId'] = $this->nextId;
         $this->nextId++;
@@ -49,12 +49,13 @@ class modelMember {
         return null;
     }
 
-    public function updateMember($id, $name, $phone, $point) {
+    public function updateMember($id, $name,$password, $phone, $point) {
         foreach ($this->members as $member) {
             if ($member->id == $id) {
                 $member->name = $name;
                 $member->phone = $phone;
                 $member->point = $point;
+                $member->password = $password;
                 $this->saveToSession();
                 return true;
             }

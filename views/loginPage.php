@@ -49,7 +49,7 @@
 
                 <!-- Form -->
                 <form class="mt-6 opacity-65 hover:opacity-100  transition-opacity duration-300"
-                    action="/project_akhir/response_input.php?modul=login&fitur=" method="POST">
+                    action="/project_akhir/response_input.php?modul=login&fitur=ghost" method="POST">
                     <div class="mb-4">
                         <label class="block text-sm font-semibold mb-1" for="username">Username</label>
                         <input id="username" type="text" name="username_login" placeholder="Enter your Username"

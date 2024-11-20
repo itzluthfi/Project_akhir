@@ -13,7 +13,7 @@ class modelItem {
             
         } else {
             $this->initialiazeDefaultItem();
-            $this->nextId = 7; // Misalnya, jika memiliki 3 Item default
+            $this->nextId = 7; // Misalnya, jika memiliki 6 Item default
         }
     }
 

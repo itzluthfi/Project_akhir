@@ -30,10 +30,19 @@
                 <form action="/project_akhir/response_input.php?modul=member&fitur=add" method="POST">
                     <!-- Nama Member -->
                     <div class="mb-4">
-                        <label for="member_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Member:</label>
+                        <label for="member_name" class="block text-gray-700 text-sm font-bold mb-2">Nama :</label>
                         <input type="text" id="member_name" name="member_name"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Masukkan Nama Member" required>
+                    </div>
+
+                    <!-- Password Member -->
+                    <div class="mb-4">
+                        <label for="member_password" class="block text-gray-700 text-sm font-bold mb-2">Password
+                            :</label>
+                        <input type="password" id="member_password" name="member_password"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="Masukkan Passsword " required>
                     </div>
 
                     <!-- Nomor Telepon Member -->

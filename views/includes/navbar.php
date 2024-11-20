@@ -32,7 +32,7 @@ $user_role = $modelRole->getRoleById(unserialize($_SESSION['user_login'])->id_ro
                 </div>
             </div>
 
-            <form action="../../response_input.php?modul=logout&fitur=logout" method="POST">
+            <form action="../../response_input.php?modul=logout&fitur=user" method="POST">
                 <button type="submit"
                     class="ml-4 bg-slate-500 hover:bg-red-700 hover:text-black text-white font-bold py-2 px-4 rounded flex border-2 border-gray-900">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

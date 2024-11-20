@@ -18,13 +18,17 @@ class ControllerCart {
                 $item_stock = $_POST['item_stock'];
                 $item_star = $_POST['item_star'];
                 $quantity = $_POST['quantity'];
+            
 
                 if ($this->modelCart->addCartItem($member_id, $item_id, $item_name, $item_price, $item_stock, $item_star, $quantity)) {
-                    $message = "Item added to cart successfully!";
+                    $message = "Item berhasil ditambahkan ke keranjang!";
                 } else {
-                    $message = "Failed to add item to cart.";
+                    $message = "Gagal menambahkan item ke keranjang.";
                 }
+                
+                echo "<script>alert('$message'); window.location.href='/project_akhir/views/warkop_ui/index.php';</script>";
                 break;
+            
 
             case 'update_quantity':
                 $cart_id = $_POST['cart_id'];

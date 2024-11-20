@@ -1,8 +1,30 @@
 <?php 
 require_once "/laragon/www/project_akhir/init.php";
+
+$isLogin = false;
+
+// Cek apakah ada cookie untuk member_login
+if (isset($_COOKIE['member_login'])) {
+    // Jika ada, set sesi dari cookie
+    $_SESSION['member_login'] = $_COOKIE['member_login'];
+}
+
+// Cek apakah ada sesi pengguna yang aktif
+if (isset($_SESSION['member_login'])) {
+    // Jika ada, arahkan ke halaman role_list
+    $isLogin = true;
+}
+
+
+
 $allMenu = $modelItem->getAllItem();
 
-$carts = $modelCart->getCartsByMemberId(1);
+if($isLogin){
+    $member_id = unserialize($_SESSION['member_login'])->id;
+    $carts = $modelCart->getCartsByMemberId($member_id);
+}else{
+    $carts = [];
+}
 
 ?>
 
@@ -29,15 +51,34 @@ $carts = $modelCart->getCartsByMemberId(1);
 
     <!-- my style -->
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <style>
     /* Shopping Cart Styling */
     .shopping-cart {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ddd;
+        position: fixed;
+        /* Agar tetap di posisi yang sama saat scroll */
+        top: 95px;
+        right: 0;
+        height: 90vh;
+        width: 410px;
+        padding: 1.5rem;
+        color: var(--bg);
+        transform: translateX(100%);
         background-color: #fff;
+        /* Menyembunyikan di sebelah kanan layar */
+        transition: transform 0.5s ease;
+        /* Animasi smooth */
+        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+        /* Tambahkan shadow agar lebih menarik */
+        z-index: 999;
+        /* Agar berada di atas elemen lain */
+        border-radius: 10px;
+    }
+
+    .shopping-cart.active {
+        transform: translateX(0);
+        /* Muncul dari sebelah kanan ke kiri */
     }
 
     .shopping-cart h2 {
@@ -52,7 +93,7 @@ $carts = $modelCart->getCartsByMemberId(1);
         flex-direction: column;
         gap: 5px;
         /* Mengurangi jarak antar item */
-        max-height: 410px;
+        max-height: 430px;
         max-width: 420px;
         /* Tentukan tinggi maksimum area keranjang */
         overflow-y: auto;
@@ -151,13 +192,23 @@ $carts = $modelCart->getCartsByMemberId(1);
 
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
+
+        .shopping-cart.active {
+            transform: translateX(0);
+            top: 60px;
+            right: 0;
+            height: 92vh;
+            width: 380px;
+            /* Muncul dari sebelah kanan ke kiri */
+        }
+
         .cart-item {
             flex-direction: column;
             align-items: flex-start;
         }
 
         .cart-item img {
-            max-width: 80px;
+            max-width: 60px;
         }
 
         .item-detail h3 {
@@ -178,7 +229,8 @@ $carts = $modelCart->getCartsByMemberId(1);
         }
     }
 
-    #login-button {
+    #login-button,
+    #logout-button {
         display: inline-block;
         padding: 8px 20px;
         background-color: #b6895b;
@@ -188,7 +240,8 @@ $carts = $modelCart->getCartsByMemberId(1);
         font-weight: bold;
     }
 
-    #login-button:hover {
+    #login-button:hover,
+    #logout-button:hover {
         background-color: #c3792f;
         color: black;
 
@@ -212,13 +265,17 @@ $carts = $modelCart->getCartsByMemberId(1);
 
         <div class="navbar-extra">
             <a href="#" id="search-button"><i data-feather="search"></i>
-                <a href="#" id="shopping-cart-button">
+                <a href="#" id="<?=  $isLogin ? "shopping-cart-button" : ""  ?>" <?php  if (!$isLogin): ?>
+                    onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;" <?php endif; ?>>
                     <i data-feather="shopping-cart"></i>
                     <span class="quanty-badge" style="color: #f7b80a;">
-                        <?= count($carts) ?> </a>
+                        <?= count($carts) ?>
+                    </span>
+                </a>
+
                 <a href="#" id="hamburger-menu"><i data-feather="menu"></i>
                 </a>
-                <a id="login-button" href="/project_akhir/views/warkop_ui/login_member.php">Login</a>
+                <?=  $isLogin ? '<a id="logout-button" href="/project_akhir/response_input.php?modul=logout&fitur=member">Logout</a>' : '<a id="login-button" href="/project_akhir/views/warkop_ui/login_member.php">Login</a>' ?>
         </div>
         <!-- search form start -->
         <div class="search-form">
@@ -345,11 +402,6 @@ $carts = $modelCart->getCartsByMemberId(1);
 
 
 
-
-
-
-
-
     <!-- products section start -->
     <section class="products" id="products">
         <h2><span>produk unggulan</span> kami</h2>
@@ -362,10 +414,32 @@ $carts = $modelCart->getCartsByMemberId(1);
             <?php foreach ($allMenu as $menu) {  ?>
             <div class="product-card">
                 <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
-                    <a href="#" class="item-detail-button" data-star="<?= $menu->item_star ?>"><i
-                            data-feather="eye"></i></a>
+                    <!-- Form untuk menambahkan ke keranjang -->
+                    <form action="../../response_input.php?modul=cart&fitur=add" method="POST" style="display: inline;">
+                        <!-- Input tersembunyi untuk mengirimkan data -->
+                        <input type="hidden" name="member_id" value="<?= $member_id ?>">
+                        <!-- Ganti dengan variabel member_id -->
+                        <input type="hidden" name="item_id" value="<?= $menu->item_id ?>">
+                        <input type="hidden" name="item_name" value="<?= $menu->item_name ?>">
+                        <input type="hidden" name="item_price" value="<?= $menu->item_price ?>">
+                        <input type="hidden" name="item_stock" value="<?= $menu->item_stock ?>">
+                        <input type="hidden" name="item_star" value="<?= $menu->item_star ?>">
+                        <input type="hidden" name="quantity" value="1"> <!-- Default jumlah awal -->
 
+                        <!-- Link yang terlihat seperti tombol -->
+                        <a href="#" class="cart-button" <?php if (!$isLogin): ?>
+                            onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;"
+                            <?php else: ?> onclick="showQuantityPopup(event, '<?= $menu->item_id ?>'); return false;"
+                            <?php endif; ?>>
+                            <i data-feather="shopping-cart"></i>
+                        </a>
+                    </form>
+
+                    <a href="#" class="item-detail-button" data-star="<?= $menu->item_star ?>" <?php if (!$isLogin): ?>
+                        onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;"
+                        <?php endif; ?>>
+                        <i data-feather="eye"></i>
+                    </a>
                 </div>
                 <div class="product-image">
                     <img src="img/menu/<?= $menu->item_name ?>.jpg" alt="product 1">
@@ -378,17 +452,30 @@ $carts = $modelCart->getCartsByMemberId(1);
                         <?php } ?>
                     </div>
 
-
                     <div class="product-price">
                         RP. <?= ceil($menu->item_price * 0.8) ?>
                         <span>RP. <?= $menu->item_price ?></span>
                     </div>
-
-
                 </div>
             </div>
+
+
             <?php } ?>
 
+
+
+        </div>
+        <!-- Popup untuk jumlah item -->
+        <div id="quantityPopup"
+            style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+            <h3 style="margin-bottom: 5px;color: #010101;">Masukkan Jumlah Item</h3>
+            <input type="number" id="popupQuantity" value="1" min="1"
+                style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"
+                placeholder="">
+            <button id="confirmQuantity"
+                style="padding: 8px 12px; background-color: #b6895b; color: white; border: none; border-radius: 5px;">Konfirmasi</button>
+            <button onclick="closePopup()"
+                style="padding: 8px 12px; background-color: #010101; color: white; border: none; border-radius: 5px; margin-left: 10px;">Batal</button>
         </div>
 
     </section>
@@ -490,6 +577,64 @@ $carts = $modelCart->getCartsByMemberId(1);
     <!-- modal box item details end -->
 
 
+
+
+    <!-- hak akses member(login) start -->
+
+    <!-- hak akses member(login) end -->
+    <script>
+    let activeFormId = null;
+
+    function showQuantityPopup(event, itemId) {
+        event.preventDefault();
+        activeFormId = `cartForm-${itemId}`;
+        document.getElementById('quantityPopup').style.display = 'block';
+        document.getElementById('popupQuantity').value = 1; // Reset value
+    }
+
+    function closePopup() {
+        document.getElementById('quantityPopup').style.display = 'none';
+        activeFormId = null;
+    }
+
+    document.getElementById('confirmQuantity').addEventListener('click', function() {
+        if (activeFormId) {
+            const quantity = document.getElementById('popupQuantity').value;
+            document.querySelector(`#${activeFormId} [name="quantity"]`).value = quantity;
+            document.getElementById(activeFormId).submit();
+            closePopup();
+        }
+    });
+    </script>
+
+    <!-- modal close strt-->
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const itemdetailmodal = document.querySelector("#item-detail-modal");
+        const closeIcon = document.querySelector(".modal-container .close-icon");
+
+        // Tutup modal ketika tombol close-icon diklik
+        closeIcon.onclick = (e) => {
+            e.preventDefault();
+            itemdetailmodal.style.display = "none";
+            console.log("close");
+        };
+
+        // Tutup modal ketika klik di luar modal
+        window.onclick = (e) => {
+            if (e.target === itemdetailmodal) {
+                itemdetailmodal.style.display = "none";
+                console.log("Modal ditutup");
+            }
+        };
+    });
+    </script>
+    <!-- modal end -->
+
+
+
+
+
     <!-- contact form-->
     <script>
     function submitToWhatsApp(event) {
@@ -511,7 +656,20 @@ $carts = $modelCart->getCartsByMemberId(1);
         window.open(whatsappURL, '_blank');
     }
     </script>
+    <!-- shopping cart logic -->
     <script>
+    function submitForm(e, linkElement) {
+        // Prevent default behavior
+        e.preventDefault();
+
+        // Submit the closest form
+        const form = linkElement.closest('form');
+        if (form) {
+            form.submit();
+        }
+    }
+
+
     function decreaseQuantity(id) {
         const quantityElement = document.getElementById(`quantity-${id}`);
         let quantity = parseInt(quantityElement.textContent);
@@ -589,9 +747,13 @@ $carts = $modelCart->getCartsByMemberId(1);
     }
     </script>
 
+
+
     <!-- feather icon -->
     <script>
-    feather.replace();
+    document.addEventListener("DOMContentLoaded", () => {
+        feather.replace(); // Pastikan ikon Feather diganti setelah DOM siap
+    });
     </script>
 
     <!-- my javascript -->

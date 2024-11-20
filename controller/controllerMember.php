@@ -12,9 +12,10 @@ class ControllerMember {
         switch ($action) {
             case 'add':
                 $member_name = $_POST['member_name'];
+                $member_password = $_POST['member_password'];
                 $member_phone = $_POST['member_phone'];
                 $member_point = $_POST['member_point'];
-                if ($this->modelMember->addMember($member_name, $member_phone, $member_point)) {
+                if ($this->modelMember->addMember($member_name,$member_password, $member_phone, $member_point)) {
                     $message = "Member added successfully!";
                 } else {
                     $message = "Failed to add member.";
@@ -24,9 +25,10 @@ class ControllerMember {
             case 'update':
                 $member_id = $_POST['member_id'];
                 $member_name = $_POST['member_name'];
+                $member_password = $_POST['member_password'];
                 $member_phone = $_POST['member_phone'];
                 $member_point = $_POST['member_point'];
-                if ($this->modelMember->updateMember($member_id, $member_name, $member_phone, $member_point)) {
+                if ($this->modelMember->updateMember($member_id, $member_name,$member_password, $member_phone, $member_point)) {
                     $message = "Member updated successfully!";
                 } else {
                     $message = "Failed to update member.";
@@ -50,14 +52,14 @@ class ControllerMember {
                 if (isset($_GET['id'])) {
                     $member = $this->modelMember->getMemberById($_GET['id']);
                     if ($member) {
-                        echo json_encode($member);  // Return member data in JSON format
+                        return $member;
                     } else {
-                        echo json_encode(['error' => 'Member not found']);
+                        $message = "Member not found.";
                     }
                 } else {
-                    echo json_encode(['error' => 'Member ID not provided']);
+                    $message = "Member ID not provided.";
                 }
-                return;  // Return early since we're echoing JSON directly
+                return;
 
             default:
                 $message = "Action not recognized for member.";

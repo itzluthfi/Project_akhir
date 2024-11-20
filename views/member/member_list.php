@@ -57,7 +57,8 @@
                         <thead class="bg-gray-800 text-white">
                             <tr>
                                 <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">Member ID</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Member Name</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Member Name</th>
+                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Member Password</th>
                                 <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Phone Number</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Points</th>
                                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
@@ -68,7 +69,8 @@
                             <?php foreach($obj_members as $member) { ?>
                             <tr class="text-center">
                                 <td class="py-3 px-4 text-blue-600"><?= $member->id ?></td>
-                                <td class="w-1/4 py-3 px-4"><?= $member->name ?></td>
+                                <td class="w-1/6 py-3 px-4"><?= $member->name ?></td>
+                                <td class="w-1/6 py-3 px-4"><?= $member->password ?></td>
                                 <td class="w-1/4 py-3 px-4"><?= $member->phone ?></td>
                                 <td class="w-1/6 py-3 px-4">
                                     <?= $member->point ?>

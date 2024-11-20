@@ -119,52 +119,6 @@ body {
   margin-right: 1.5rem;
 }
 
-/* shopping cart */
-/* .shopping-cart {
-  position: absolute;
-  top: 100%;
-  right: -100%;
-  height: 100vh;
-  width: 20rem;
-  padding: 0 1.5rem;
-  color: var(--bg);
-  background-color: #fff;
-  transition: 0.4s;
-}
-
-.shopping-cart .cart-item {
-  position: relative;
-  margin: 0rem 0;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem;
-  border-bottom: 1px dashed #666;
-}
-
-.shopping-cart img {
-  height: 5rem;
-  border-radius: 50%;
-}
-
-.shopping-cart h3 {
-  padding-bottom: 0.5rem;
-  font-size: 1.6rem;
-}
-
-.shopping-cart .remove-item {
-  position: absolute;
-  right: 1rem;
-  cursor: pointer;
-}
-
-.shopping-cart .remove-item:hover {
-  color: var(--primary);
-}
-
-.shopping-cart.active {
-  right: -8rem;
-} */
 
 /* hero section */
 .hero {
@@ -570,6 +524,8 @@ footer .credit a {
   margin-top: 1rem;
   padding: 1rem 1.6rem;
 }
+
+
 
 /* media queries */
 

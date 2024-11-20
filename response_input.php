@@ -46,6 +46,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             break;
             
         case 'login':
+                switch ($action) {
+                case 'member':
+                    $username = $_POST["username_login"];
+                    $password = $_POST["password_login"];
+                    $rememberMe = isset($_POST["remember_me"]); // Cek apakah "Remember Me" dicentang
+                    $members = $modelMember->getAllMembers();
+
+                    foreach ($members as $member) {
+                        // Cocokkan username dan password
+                        if ($member->name == $username && $member->password == $password) {
+                            // Simpan data member ke session
+                            $_SESSION['member_login'] = serialize($member);
+                
+                            // Jika "Remember Me" dicentang, simpan cookie yang berlaku selama 1 hari
+                            if ($rememberMe) {
+                                setcookie('member_login', serialize($member), time() + (86400), "/"); // 86400 detik = 1 hari
+                            }
+
+                            echo "<script>alert('Login berhasil'); window.location.href='/project_akhir/views/warkop_ui/index.php';</script>";
+
+                            return;
+                        }
+                    }   
+                    
+                    echo "<script>alert('Login gagal'); window.location.href='/project_akhir/views/warkop_ui/login_member.php';</script>";
+                    break;
+                case 'ghost':
                 $username = $_POST["username_login"];
                 $password = $_POST["password_login"];
                 $rememberMe = isset($_POST["remember_me"]); // Cek apakah "Remember Me" dicentang
@@ -56,24 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                     if ($user->user_username == $username && $user->user_password == $password) {
                         // Simpan data user ke session
                         $_SESSION['user_login'] = serialize($user);
-
-                //  // Cek role pengguna dan menentukan sidebar yang sesuai
-                // switch ($user->role) {
-                //     case 'admin':
-                //         $sidebar_file = '../includes/sidebar_admin.php';
-                //         break;
-                //     case 'superadmin':
-                //         $sidebar_file = '../includes/sidebar_superadmin.php';
-                //         break;
-                //     case 'kasir':
-                //         $sidebar_file = '../includes/sidebar_kasir.php';
-                //         break;
-                //     default:
-                //         $sidebar_file = '../includes/sidebar.php'; // Sidebar default jika role tidak dikenal
-                //         break;
-                // }
-            
-                            
+                
                     // Jika "Remember Me" dicentang, simpan cookie yang berlaku selama 1 hari
                     if ($rememberMe) {
                         setcookie('user_login', serialize($user), time() + (86400), "/"); // 86400 detik = 1 hari
@@ -83,22 +93,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
                         return;
                     }
+                    
+                    }
+                // Jika login gagal
+                 echo "<script>alert('Login gagal!'); window.location.href='/project_akhir/';</script>";
+                break;
                 }
-            // Jika login gagal
-            echo "<script>alert('Login gagal!'); window.location.href='/project_akhir/';</script>";
-        break;
-
-            case 'logout':
+            break;
+        case 'logout':
                 // Hapus sesi dan cookie
                 session_unset();
                 session_destroy(); 
-                
+                switch ($action) {
+                case 'user':
                 if (isset($_COOKIE['user_login'])) {
-                    
                     setcookie('user_login', '', time() - 3600, "/");
                 }
-                
                 echo "<script>alert('Logout berhasil!'); window.location.href='/project_akhir/';</script>";
+
+                break;
+
+                case 'member':
+                if (isset($_COOKIE['member_login'])) {
+                    
+                    setcookie('member_login', '', time() - 3600, "/");
+                }
+                echo "<script>alert('Logout berhasil!'); window.location.href='/project_akhir/views/warkop_ui/index.php';</script>";
+                break;
+                }
+                echo "<script>alert('Logout gagal!fitur tak di kenal');</script>";
+                
                 break;
 
         default:
@@ -106,4 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             break;
     }
 }
+
+
 ?>

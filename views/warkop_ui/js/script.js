@@ -40,7 +40,7 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// modal box
+// detail eye click event
 const itemdetailmodal = document.querySelector("#item-detail-modal");
 const itemdetailbuttons = document.querySelectorAll(".item-detail-button");
 const productStars = itemdetailmodal.querySelector(".product-stars");
@@ -69,3 +69,101 @@ itemdetailbuttons.forEach((btn) => {
     itemdetailmodal.style.display = "flex"; // Tampilkan modal
   };
 });
+
+//logika cart
+// function decreaseQuantity(id) {
+//   const quantityElement = document.getElementById(`quantity-${id}`);
+//   let quantity = parseInt(quantityElement.textContent);
+//   if (quantity > 1) {
+//     quantityElement.textContent = quantity - 1;
+//     updateTotalPrice();
+//   }
+// }
+
+// function increaseQuantity(id) {
+//   const quantityElement = document.getElementById(`quantity-${id}`);
+//   let quantity = parseInt(quantityElement.textContent);
+//   quantityElement.textContent = quantity + 1;
+//   updateTotalPrice();
+// }
+
+// function updateQuantity(id, delta) {
+//   const quantitySpan = document.getElementById(`quantity-${id}`);
+//   let quantity = parseInt(quantitySpan.textContent) + delta;
+//   if (quantity < 1) return; // Cegah jumlah negatif atau nol
+
+//   fetch(`/project_akhir/response_input.php`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       id,
+//       quantity,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (data.success) {
+//         quantitySpan.textContent = quantity;
+//         document.getElementById(`price-${id}`).textContent = data.newPrice;
+//         document.getElementById(`totalPrice`).textContent = data.totalPrice;
+//       }
+//     });
+// }
+
+// function removeItem(id) {
+//   fetch(`/project_akhir/response_input.php`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       id,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (data.success) {
+//         document.getElementById(`cart-item-${id}`).remove();
+//         document.getElementById(`totalPrice`).textContent = data.totalPrice;
+//       }
+//     });
+// }
+
+// function checkout() {
+//   fetch(`/project_akhir/response_input.php`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (data.success) {
+//         alert("Checkout berhasil!");
+//         document.getElementById("shopping-cart").innerHTML =
+//           "<p>Your cart is empty.</p>";
+//       }
+//     });
+// }
+
+//logika contact form
+// function submitToWhatsApp(event) {
+//   event.preventDefault();
+
+//   // Mengambil nilai dari input
+//   const name = document.getElementById("name").value;
+//   const email = document.getElementById("email").value;
+//   const phone = document.getElementById("phone").value;
+
+//   // ID nomor WhatsApp tujuan
+//   const phoneNumber = "6289507370805"; // Ganti dengan nomor WhatsApp tujuan
+
+//   // Format pesan yang akan dikirim
+//   const message = `Halo, saya ${name}.%0AEmail: ${email}%0ANo HP: ${phone}%0ASaya ingin menghubungi Anda.`;
+
+//   // Mengarahkan ke WhatsApp
+//   const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+//   window.open(whatsappURL, "_blank");
+// }
