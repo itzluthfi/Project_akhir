@@ -12,7 +12,7 @@ class modelMember {
     public function __construct() {
         // Inisialisasi koneksi database
         $this->db = new Database('localhost', 'root', '', 'poswarkop');
-        $this->initializeDefaultMembers();
+        // $this->initializeDefaultMembers();
     }
 
     private function initializeDefaultMembers() {
@@ -37,7 +37,7 @@ class modelMember {
             $this->db->execute($query);
             return true;
         } catch (Exception $e) {
-            error_log("Error adding member: " . $e->getMessage());
+            echo "<script>console.log('Error adding member: " . addslashes($e->getMessage()) . "');</script>";
             return false;
         }
     }
@@ -45,30 +45,36 @@ class modelMember {
     public function getAllMembers() {
         $query = "SELECT * FROM members";
         $result = $this->db->select($query);
-
+    
         $members = [];
         foreach ($result as $row) {
             $members[] = new Member($row['id'], $row['username'], $row['password'], $row['phone'], $row['point']);
         }
-
-        if($members != null) {
+    
+        if ($members != null) {
+            echo "<script>console.log('Members fetched successfully: " . addslashes(json_encode($members)) . "');</script>";
             return $members;
         }
+        echo "<script>console.log('No members found.');</script>";
         return null;
     }
-
+    
     public function getMemberById($id) {
         $id = (int)$id;
         $query = "SELECT * FROM members WHERE id = $id";
         $result = $this->db->select($query);
-
+    
         if (count($result) > 0) {
             $row = $result[0];
-            return new Member($row['id'], $row['name'], $row['password'], $row['phone'], $row['point']);
+            $member = new Member($row['id'], $row['name'], $row['password'], $row['phone'], $row['point']);
+            echo "<script>console.log('Member fetched successfully: " . addslashes(json_encode($member)) . "');</script>";
+            return $member;
         }
-
+    
+        echo "<script>console.log('Member with ID $id not found.');</script>";
         return null;
     }
+    
 
     public function updateMember($id, $name, $password, $phone, $point) {
         $id = (int)$id;
@@ -82,7 +88,7 @@ class modelMember {
             $this->db->execute($query);
             return true;
         } catch (Exception $e) {
-            error_log("Error updating member: " . $e->getMessage());
+            echo "<script>console.log('Error updating member: " . addslashes($e->getMessage()) . "');</script>";
             return false;
         }
     }
@@ -94,7 +100,7 @@ class modelMember {
             $this->db->execute($query);
             return true;
         } catch (Exception $e) {
-            error_log("Error deleting member: " . $e->getMessage());
+            echo "<script>console.log('Error deleting member: " . addslashes($e->getMessage()) . "');</script>";
             return false;
         }
     }
