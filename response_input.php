@@ -80,9 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 
                 foreach ($users as $user) {
                     // Cocokkan username dan password
-                    if ($user->user_username == $username && $user->user_password == $password) {
+                    if ($user->user_username === $username &&  password_verify($password, $user->user_password)) {
                         // Simpan data user ke session
                         $_SESSION['user_login'] = serialize($user);
+            
                 
                     // Jika "Remember Me" dicentang, simpan cookie yang berlaku selama 1 hari
                     if ($rememberMe) {

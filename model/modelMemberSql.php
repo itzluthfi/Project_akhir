@@ -29,10 +29,10 @@ class modelMember {
         // Escape input untuk mencegah SQL Injection
         $name = mysqli_real_escape_string($this->db->conn, $name);
         $password = mysqli_real_escape_string($this->db->conn, $password);
-        $phone = mysqli_real_escape_string($this->db->conn, $phone);
+        $phone = (int)$phone;
         $point = (int)$point;
 
-        $query = "INSERT INTO members (name, password, phone, point) VALUES ('$name', '$password', '$phone', $point)";
+        $query = "INSERT INTO members (username, password, phone, point) VALUES ('$name', '$password', '$phone', $point)";
         try {
             $this->db->execute($query);
             return true;
@@ -66,7 +66,7 @@ class modelMember {
     
         if (count($result) > 0) {
             $row = $result[0];
-            $member = new Member($row['id'], $row['name'], $row['password'], $row['phone'], $row['point']);
+            $member = new Member($row['id'], $row['username'], $row['password'], $row['phone'], $row['point']);
             echo "<script>console.log('Member fetched successfully: " . addslashes(json_encode($member)) . "');</script>";
             return $member;
         }
@@ -83,7 +83,7 @@ class modelMember {
         $phone = mysqli_real_escape_string($this->db->conn, $phone);
         $point = (int)$point;
 
-        $query = "UPDATE members SET name = '$name', password = '$password', phone = '$phone', point = $point WHERE id = $id";
+        $query = "UPDATE members SET username = '$name', password = '$password', phone = '$phone', point = $point WHERE id = $id";
         try {
             $this->db->execute($query);
             return true;

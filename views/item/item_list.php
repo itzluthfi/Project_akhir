@@ -34,7 +34,7 @@ include "/laragon/www/project_akhir/auth_check.php";
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include $sidebar_file; ?>
+        <?php include '../includes/sidebar.php'; ?>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">

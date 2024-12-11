@@ -8,7 +8,7 @@ class modelItem {
     public function __construct() {
         // Inisialisasi koneksi database
         $this->db = new Database('localhost', 'root', '', 'poswarkop');
-        // $this->initializeDefaultItems(); // Anda bisa menambahkan ini jika ingin menambahkan item default saat pertama kali
+        $this->initializeDefaultItems(); // Anda bisa menambahkan ini jika ingin menambahkan item default saat pertama kali
 
         // Jika ingin mengambil data item dari database, Anda bisa menggunakan metode getAllItem
     }

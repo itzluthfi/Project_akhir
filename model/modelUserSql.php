@@ -1,6 +1,8 @@
 <?php
 
 require_once "/laragon/www/project_akhir/domain_object/node_user.php";  // Jika Anda masih ingin menggunakan node
+include_once "/laragon/www/project_akhir/model/dbConnect.php";
+
 
 class modelUser {
     private $db;

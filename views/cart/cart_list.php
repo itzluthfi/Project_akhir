@@ -31,7 +31,8 @@ $obj_carts = $modelCart->getAllCartItems();
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include $sidebar_file; ?>
+        <?php include '../includes/sidebar.php'; ?>
+
 
         <!-- Main Content -->
         <div class="flex-1 p-8">

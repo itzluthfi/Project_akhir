@@ -75,7 +75,8 @@ $sales_totals_json = json_encode($sales_totals);
     <div class="flex h-screen">
         <!-- Sidebar -->
 
-        <?php include $sidebar_file; ?>
+        <?php include_once '/laragon/www/project_akhir/views/includes/sidebar.php'; ?>
+
 
 
         <!-- Main Content -->

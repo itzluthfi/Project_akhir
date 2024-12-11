@@ -21,16 +21,7 @@ class modelRole {
         }
     }
 
-    private function initializeDefaultRoles() {
-        // Tambahkan role default hanya jika tabel kosong
-        if (count($this->getAllRoleFromDB()) === 0) {
-            $this->addRole("Admin", "Administrator", 1, 200000);
-            $this->addRole("Manager", "Manage Admin", 0, 5000000);
-            $this->addRole("Superadmin", "Owner", 1, 15000000);
-            $this->addRole("Kasir", "Pembayaran", 1, 1000000);
-        }
-    }
-
+   
     public function addRole($role_name, $role_description, $role_status, $role_gaji) {
         // Escape input untuk mencegah SQL Injection
         $role_name = mysqli_real_escape_string($this->db->conn, $role_name);
@@ -38,7 +29,7 @@ class modelRole {
         $role_status = (int)$role_status;
         $role_gaji = (int)$role_gaji;
 
-        $query = "INSERT INTO roles (role_name, role_description, role_status, role_gaji) 
+        $query = "INSERT INTO roles (name, description, status, gaji) 
                   VALUES ('$role_name', '$role_description', $role_status, $role_gaji)";
         try {
             $this->db->execute($query);
@@ -58,7 +49,7 @@ class modelRole {
 
         $roles = [];
         foreach ($result as $row) {
-            $roles[] = new Role($row['role_id'], $row['role_name'], $row['role_description'], $row['role_status'], $row['role_gaji']);
+            $roles[] = new Role($row['id'], $row['name'], $row['description'], $row['status'], $row['gaji']);
         }
         return $roles;
     }
@@ -70,12 +61,12 @@ class modelRole {
 
     public function getRoleById($role_id) {
         $role_id = (int)$role_id;
-        $query = "SELECT * FROM roles WHERE role_id = $role_id";
+        $query = "SELECT * FROM roles WHERE id = $role_id";
         $result = $this->db->select($query);
 
         if (count($result) > 0) {
             $row = $result[0];
-            $role = new Role($row['role_id'], $row['role_name'], $row['role_description'], $row['role_status'], $row['role_gaji']);
+            $role = new Role($row['id'], $row['name'], $row['description'], $row['status'], $row['gaji']);
             echo "<script>console.log('Role fetched successfully: " . addslashes(json_encode($role)) . "');</script>";
             return $role;
         }
@@ -92,8 +83,8 @@ class modelRole {
         $role_gaji = (int)$role_gaji;
 
         $query = "UPDATE roles 
-                  SET role_name = '$role_name', role_description = '$role_description', role_status = $role_status, role_gaji = $role_gaji 
-                  WHERE role_id = $id";
+                  SET name = '$role_name', description = '$role_description', status = $role_status, gaji = $role_gaji 
+                  WHERE id = $id";
         try {
             $this->db->execute($query);
             // Perbarui data dalam sesi
@@ -108,7 +99,7 @@ class modelRole {
 
     public function deleteRole($role_id) {
         $role_id = (int)$role_id;
-        $query = "DELETE FROM roles WHERE role_id = $role_id";
+        $query = "DELETE FROM roles WHERE id = $role_id";
         try {
             $this->db->execute($query);
             // Perbarui data dalam sesi

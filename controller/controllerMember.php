@@ -1,5 +1,6 @@
 <?php
-require_once "/laragon/www/project_akhir/model/modelMember.php";
+
+require_once "/laragon/www/project_akhir/model/modelMemberSql.php";
 
 class ControllerMember {
     private $modelMember;
@@ -18,7 +19,7 @@ class ControllerMember {
                 if ($this->modelMember->addMember($member_name,$member_password, $member_phone, $member_point)) {
                     $message = "Member added successfully!";
                 } else {
-                    $message = "Failed to add member.";
+                    $message = "Failed to add member22.";
                 }
                 break;
 

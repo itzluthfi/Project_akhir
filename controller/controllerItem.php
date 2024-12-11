@@ -1,5 +1,5 @@
 <?php
-require_once "/laragon/www/project_akhir/model/modelItem.php";
+require_once "/laragon/www/project_akhir/model/modelItemSql.php";
 
 class ControllerItem {
     private $modelItem;
@@ -19,7 +19,7 @@ class ControllerItem {
 
                     $message = "Item added successfully!";
                 }else{
-                    $message = "Failed to Add item.";
+                    $message = "Failed to Add item22.";
 
                 }
                 break;
@@ -29,7 +29,8 @@ class ControllerItem {
                 $item_name = $_POST['item_name'];
                 $item_price = $_POST['item_price'];
                 $item_stock = $_POST['item_stock'];
-                if ($this->modelItem->updateItem($item_id, $item_name,$item_price, $item_stock)) {
+                $item_star = $_POST['item_star'];
+                if ($this->modelItem->updateItem($item_id, $item_name,$item_price, $item_stock,$item_star)) {
                     $message = "Item updated successfully!";
                 } else {
                     $message = "Failed to update item.";
