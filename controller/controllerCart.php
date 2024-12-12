@@ -1,5 +1,5 @@
 <?php
-require_once "/laragon/www/project_akhir/model/modelCart.php";
+require_once "/laragon/www/project_akhir/model/modelCartSql.php";
 
 class ControllerCart {
     private $modelCart;
