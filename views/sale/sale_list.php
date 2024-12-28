@@ -80,7 +80,7 @@ $sales = $modelSale->getAllSales();
                                     <?php echo htmlspecialchars($sale->sale_id); ?></td>
                                 <!-- <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($sale->sale_date); ?></td> -->
                                 <td class="w-1/4 py-3 px-4">
-                                    <?php $user = $modelUser->getUserById($sale->id_user);$role = $modelRole->getRoleById($sale->id_user); echo htmlspecialchars("{$user->user_username} - [{$role->role_name}]"); ?>
+                                    <?php $user = $modelUser->getUserById($sale->id_user);$role = $modelRole->getRoleById($user->id_role); echo htmlspecialchars("{$user->user_username} - [{$role->role_name}]"); ?>
                                 </td>
                                 <td class="w-1/4 py-3 px-4">
                                     <?php $member = $modelMember->getMemberById($sale->id_member); echo htmlspecialchars($member->name); ?>
@@ -150,7 +150,7 @@ $sales = $modelSale->getAllSales();
                     <div class="font-semibold text-gray-700">User</div>
                     <div><?php 
                         $user = $modelUser->getUserById($sale->id_user);
-                        $role = $modelRole->getRoleById($sale->id_user);
+                        $role = $modelRole->getRoleById($user->id_role);
                         echo htmlspecialchars("{$user->user_username} - [{$role->role_name}]");
                     ?></div>
                 </div>
@@ -182,24 +182,29 @@ $sales = $modelSale->getAllSales();
                 <div class="mt-6">
                     <h4 class="text-lg font-semibold text-gray-800">Detail Barang</h4>
                     <table class="min-w-full bg-white table-auto mt-4 rounded-lg overflow-hidden shadow-md">
-                        <thead class="bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white">
+                        <thead class="bg-[#b6895b] text-white">
                             <tr>
                                 <th class="py-3 px-4 text-left">ID</th>
-                                <th class="py-3 px-4 text-left">Barang</th>
+                                <th class="py-3 px-4 text-left">Nama</th>
                                 <th class="py-3 px-4 text-right">Harga</th>
                                 <th class="py-3 px-4 text-right">Jumlah</th>
                                 <th class="py-3 px-4 text-right">Sub Total</th>
                             </tr>
                         </thead>
+
                         <tbody class="text-gray-700">
-                            <?php foreach ($sale->detailSale as $detail) { ?>
+                            <?php foreach ($sale->detailSale as $detail) { 
+                                 $items = $modelItem->getItemById($detail->item_id);
+                            ?>
+
                             <tr class="hover:bg-gray-100 transition-all duration-300">
                                 <td class="py-2 px-4"><?php echo htmlspecialchars($detail->item_id); ?></td>
-                                <td class="py-2 px-4"><?php echo htmlspecialchars($detail->item_name); ?></td>
-                                <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($detail->item_price); ?>
+                                <td class="py-2 px-4"><?php echo htmlspecialchars($items->item_name); ?></td>
+                                <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($items->item_price); ?>
                                 </td>
                                 <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($detail->item_qty); ?></td>
-                                <td class="py-2 px-4 text-right"><?php echo htmlspecialchars($detail->subtotal); ?></td>
+                                <td class="py-2 px-4 text-right">
+                                    <?php echo htmlspecialchars($items->item_price * $detail->item_qty); ?></td>
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -231,6 +236,8 @@ $sales = $modelSale->getAllSales();
         }
     }
 
+
+    //TESTING
     // function addSale(saleId) {
     //     const newSale = {
     //         details: [{

@@ -16,7 +16,7 @@ class modelDetailSale {
         $item_id = (int) $item_id;
         $quantity = (int) $quantity;
 
-        $query = "INSERT INTO detailSales (sale_id, item_id, quantity) VALUES ($sale_id, $item_id, $quantity)";
+        $query = "INSERT INTO detailsales (sale_id, item_id, quantity) VALUES ($sale_id, $item_id, $quantity)";
         try {
             $this->db->execute($query);
             return true;
@@ -30,7 +30,7 @@ class modelDetailSale {
     public function getDetailSalesBySaleId($sale_id) {
         $sale_id = (int) $sale_id;
 
-        $query = "SELECT * FROM detailSales WHERE sale_id = $sale_id";
+        $query = "SELECT * FROM detailsales WHERE sale_id = $sale_id";
         $result = $this->db->select($query);
 
         $detailSales = [];
@@ -44,7 +44,7 @@ class modelDetailSale {
 
     // Mengambil detail sale berdasarkan ID
     public function getDetailSaleById($id) {
-        $query = "SELECT * FROM detailSales WHERE id = $id";
+        $query = "SELECT * FROM detailsales WHERE id = $id";
         $result = $this->db->select($query);
 
         if (count($result) > 0) {
@@ -61,7 +61,7 @@ class modelDetailSale {
         $item_id = (int) $item_id;
         $quantity = (int) $quantity;
 
-        $query = "UPDATE detailSales SET sale_id = $sale_id, item_id = $item_id, quantity = $quantity WHERE id = $id";
+        $query = "UPDATE detailsales SET sale_id = $sale_id, item_id = $item_id, quantity = $quantity WHERE id = $id";
         try {
             $this->db->execute($query);
             return true;
@@ -73,7 +73,7 @@ class modelDetailSale {
 
     // Menghapus detail sale
     public function deleteDetailSale($id) {
-        $query = "DELETE FROM detailSales WHERE id = $id";
+        $query = "DELETE FROM detailsales WHERE id = $id";
         try {
             $this->db->execute($query);
             return true;

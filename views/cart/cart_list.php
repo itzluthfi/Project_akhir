@@ -38,6 +38,17 @@ $obj_carts = $modelCart->getAllCartItems();
         <div class="flex-1 p-8">
             <div class="container mx-auto overflow-y-auto h-[calc(100vh-4rem)] mb-4">
                 <h1 class="text-4xl font-bold mb-5 pb-2 text-gray-800 italic">Manage Cart</h1>
+                <!-- Button to Insert New Item -->
+                <div class="mb-4">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <i class="fa-solid fa-plus"></i>
+
+                        <a href="./item_input.php">Add New Item</a>
+                    </button>
+                </div>
+                <!-- search form -->
+                <input id="search-input" type="text" name="query" placeholder="Search By Name Or Id"
+                    class="p-2 border border-gray-300 rounded-xl w-Search-Input " />
 
                 <!-- Items Table -->
                 <div class="bg-white shadow-md rounded my-6">

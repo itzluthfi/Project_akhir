@@ -43,15 +43,16 @@ if($isLogin){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;1,700&display=swap"
         rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css" />
     <!-- feather icon -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
 
     <!-- tailwind -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
-    <!-- my style -->
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" defer></script>
 
     <style>
     /* Shopping Cart Styling */
@@ -410,7 +411,6 @@ if($isLogin){
             Anda di sini!</p>
 
         <div class="row">
-
             <?php foreach ($allMenu as $menu) {  ?>
             <div class="product-card">
                 <div class="product-icons">
@@ -460,22 +460,43 @@ if($isLogin){
             </div>
 
 
+
+
+
+            <!-- Popup untuk jumlah item -->
+            <div id="quantityPopup"
+                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 600px;">
+                <!-- Tombol Close di Sudut Kanan Atas -->
+                <button onclick="closePopup()"
+                    style="position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 40px; font-weight: bold; cursor: pointer; color: #333;">&times;</button>
+
+                <!-- Kontainer untuk gambar dan form -->
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <!-- Gambar Produk -->
+                    <div style="flex: 1; text-align: center;">
+                        <img id="popupImage" src="img/menu/<?= $menu->item_name ?>.jpg" alt="Gambar Produk"
+                            style="max-width: 100%; border-radius: 8px;" />
+                    </div>
+
+                    <!-- Form input -->
+                    <div style="flex: 1;">
+                        <h2 id="popupItemName"
+                            style="margin-bottom: 15px; color: #333; text-align: center; font-size: 24px;">
+                            <?= $menu->item_name ?>
+                        </h2>
+                        <h3 style="margin-bottom: 10px; color: #010101; text-align: center;">Masukkan Jumlah Item</h3>
+                        <input type="number" id="popupQuantity" value="1" min="1"
+                            style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center;"
+                            placeholder="Jumlah">
+                        <button id="confirmQuantity"
+                            style="padding: 8px 12px; background-color: #b6895b; color: white; border: none; border-radius: 5px; width: 100%; margin-bottom: 10px;">Konfirmasi</button>
+                        <button onclick="closePopup()"
+                            style="padding: 8px 12px; background-color: #010101; color: white; border: none; border-radius: 5px; width: 100%;">Batal</button>
+                    </div>
+                </div>
+            </div>
             <?php } ?>
 
-
-
-        </div>
-        <!-- Popup untuk jumlah item -->
-        <div id="quantityPopup"
-            style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-            <h3 style="margin-bottom: 5px;color: #010101;">Masukkan Jumlah Item</h3>
-            <input type="number" id="popupQuantity" value="1" min="1"
-                style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"
-                placeholder="">
-            <button id="confirmQuantity"
-                style="padding: 8px 12px; background-color: #b6895b; color: white; border: none; border-radius: 5px;">Konfirmasi</button>
-            <button onclick="closePopup()"
-                style="padding: 8px 12px; background-color: #010101; color: white; border: none; border-radius: 5px; margin-left: 10px;">Batal</button>
         </div>
 
     </section>
@@ -646,7 +667,7 @@ if($isLogin){
         const phone = document.getElementById('phone').value;
 
         // ID nomor WhatsApp tujuan
-        const phoneNumber = '6289507370805'; // Ganti dengan nomor WhatsApp tujuan
+        const phoneNumber = '62895806705493'; // Ganti dengan nomor WhatsApp tujuan
 
         // Format pesan yang akan dikirim
         const message = `Halo, saya ${name}.%0AEmail: ${email}%0ANo HP: ${phone}%0ASaya ingin menghubungi Anda.`;
@@ -757,7 +778,7 @@ if($isLogin){
     </script>
 
     <!-- my javascript -->
-    <script src="js/script.js"></script>
+    <script src="js/script.js"> </script>
 </body>
 
 </html>
