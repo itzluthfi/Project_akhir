@@ -290,7 +290,7 @@ if($isLogin){
             <h2>Shopping Cart</h2>
             <div class="cart-items">
                 <?php if (!empty($carts)) {
-                foreach ($carts as $cartItem) { ?>
+        foreach ($carts as $cartItem) { ?>
                 <div class="cart-item">
                     <div class="cart-item-img">
                         <img src="img/menu/<?= $cartItem->item_name ?>.jpg"
@@ -305,7 +305,6 @@ if($isLogin){
                             <button onclick="increaseQuantity(<?= $cartItem->id ?>)">+</button>
                         </div>
                     </div>
-                    <!-- Ikon Trash-2 menggunakan SVG -->
                     <button class="remove-item" onclick="removeItem(<?= $cartItem->id ?>)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24" stroke-width="2" class="feather feather-trash-2">
@@ -314,7 +313,7 @@ if($isLogin){
                     </button>
                 </div>
                 <?php } 
-            } else { ?>
+    } else { ?>
                 <p>Your cart is empty.</p>
                 <?php } ?>
             </div>
@@ -324,15 +323,23 @@ if($isLogin){
                 <strong>Total Harga:</strong>
                 <span id="totalPrice">
                     Rp <?= number_format(array_sum(array_map(function($item) {
-                    return $item->item_price * $item->quantity;
-                }, $carts)), 0, ',', '.') ?>
+            return $item->item_price * $item->quantity;
+        }, $carts)), 0, ',', '.') ?>
                 </span>
             </div>
 
-            <!-- Tombol Checkout -->
-            <button onclick="checkout()" class="checkout-button" id="checkout-button">Checkout</button>
+            <!-- Form Checkout -->
+            <form action="./checkoutPage.php" method="POST">
+                <!-- Kirim semua data keranjang sebagai input tersembunyi -->
+                <input type="hidden" name="member_id" value="<?= $member_id ?>" />
+                <input type="hidden" name="cart_data" value="<?= htmlspecialchars(json_encode($carts)) ?>" />
+
+                <!-- Tombol Checkout -->
+                <button type="submit" class="checkout-button" id="checkout-button">Checkout</button>
+            </form>
         </div>
         <!-- Shopping Cart End -->
+
 
 
 
@@ -343,6 +350,7 @@ if($isLogin){
     <!-- navbar end -->
 
     <!-- hero section start -->
+
     <section class="hero" id="home">
         <main class="content">
             <h1>Ada Masalah? Ya <span>Ngopi</span> Aja</h1>
@@ -351,6 +359,8 @@ if($isLogin){
             <a href="#" class="cta">beli sekarang</a>
         </main>
     </section>
+    <?= var_dump($carts); ?>
+
     <!-- hero section end -->
 
 
@@ -411,29 +421,16 @@ if($isLogin){
             Anda di sini!</p>
 
         <div class="row">
-            <?php foreach ($allMenu as $menu) {  ?>
+            <?php foreach ($allMenu as $menu) { ?>
             <div class="product-card">
                 <div class="product-icons">
-                    <!-- Form untuk menambahkan ke keranjang -->
-                    <form action="../../response_input.php?modul=cart&fitur=add" method="POST" style="display: inline;">
-                        <!-- Input tersembunyi untuk mengirimkan data -->
-                        <input type="hidden" name="member_id" value="<?= $member_id ?>">
-                        <!-- Ganti dengan variabel member_id -->
-                        <input type="hidden" name="item_id" value="<?= $menu->item_id ?>">
-                        <input type="hidden" name="item_name" value="<?= $menu->item_name ?>">
-                        <input type="hidden" name="item_price" value="<?= $menu->item_price ?>">
-                        <input type="hidden" name="item_stock" value="<?= $menu->item_stock ?>">
-                        <input type="hidden" name="item_star" value="<?= $menu->item_star ?>">
-                        <input type="hidden" name="quantity" value="1"> <!-- Default jumlah awal -->
-
-                        <!-- Link yang terlihat seperti tombol -->
-                        <a href="#" class="cart-button" <?php if (!$isLogin): ?>
-                            onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;"
-                            <?php else: ?> onclick="showQuantityPopup(event, '<?= $menu->item_id ?>'); return false;"
-                            <?php endif; ?>>
-                            <i data-feather="shopping-cart"></i>
-                        </a>
-                    </form>
+                    <a href="#" class="cart-button" data-item-id="<?= $menu->item_id ?>"
+                        data-item-name="<?= $menu->item_name ?>" data-item-image="img/menu/<?= $menu->item_name ?>.jpg"
+                        <?php if (!$isLogin): ?>
+                        onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;" <?php else: ?>
+                        onclick="showQuantityPopup(event, this); return false;" <?php endif; ?>>
+                        <i data-feather="shopping-cart"></i>
+                    </a>
 
                     <a href="#" class="item-detail-button" data-star="<?= $menu->item_star ?>" <?php if (!$isLogin): ?>
                         onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;"
@@ -442,7 +439,7 @@ if($isLogin){
                     </a>
                 </div>
                 <div class="product-image">
-                    <img src="img/menu/<?= $menu->item_name ?>.jpg" alt="product 1">
+                    <img src="img/menu/<?= $menu->item_name ?>.jpg" alt="<?= $menu->item_name ?>">
                 </div>
                 <div class="product-content">
                     <h3>coffe <?= $menu->item_name ?></h3>
@@ -451,56 +448,45 @@ if($isLogin){
                         <i data-feather="star" <?= ($i <= $menu->item_star) ? 'class="star-full"' : ''; ?>></i>
                         <?php } ?>
                     </div>
-
                     <div class="product-price">
                         RP. <?= ceil($menu->item_price * 0.8) ?>
                         <span>RP. <?= $menu->item_price ?></span>
                     </div>
                 </div>
             </div>
-
-
-
+            <?php } ?>
 
 
             <!-- Popup untuk jumlah item -->
             <div id="quantityPopup"
                 style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 600px;">
-                <!-- Tombol Close di Sudut Kanan Atas -->
                 <button onclick="closePopup()"
                     style="position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 40px; font-weight: bold; cursor: pointer; color: #333;">&times;</button>
 
-                <!-- Kontainer untuk gambar dan form -->
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <!-- Gambar Produk -->
-                    <div style="flex: 1; text-align: center;">
-                        <img id="popupImage" src="img/menu/<?= $menu->item_name ?>.jpg" alt="Gambar Produk"
-                            style="max-width: 100%; border-radius: 8px;" />
+                <form action="../../response_input.php?modul=cart&fitur=add" method="POST">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="flex: 1; text-align: center;">
+                            <img id="popupImage" src="" alt="Gambar Produk"
+                                style="max-width: 100%; border-radius: 8px;" />
+                        </div>
+                        <div style="flex: 1;">
+                            <h2 style="margin-bottom: 15px; color: #333; text-align: center; font-size: 24px;"></h2>
+                            <h3 style="margin-bottom: 10px; color: #010101; text-align: center;">Masukkan Jumlah Item
+                            </h3>
+                            <input type="number" id="popupQuantity" name="quantity" value="1" min="1"
+                                style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center;"
+                                placeholder="Jumlah">
+                            <input type="hidden" name="member_id" value="<?= $member_id ?>">
+                            <input type="hidden" name="item_id" value="">
+                            <button type="submit" id="confirmQuantity"
+                                style="padding: 8px 12px; background-color: #b6895b; color: white; border: none; border-radius: 5px; width: 100%; margin-bottom: 10px;">Konfirmasi</button>
+                            <button type="button" onclick="closePopup()"
+                                style="padding: 8px 12px; background-color: #010101; color: white; border: none; border-radius: 5px; width: 100%;">Batal</button>
+                        </div>
                     </div>
-
-                    <!-- Form input -->
-                    <div style="flex: 1;">
-                        <h2 id="popupItemName"
-                            style="margin-bottom: 15px; color: #333; text-align: center; font-size: 24px;">
-                            <?= $menu->item_name ?>
-                        </h2>
-                        <h3 style="margin-bottom: 10px; color: #010101; text-align: center;">Masukkan Jumlah Item</h3>
-                        <input type="number" id="popupQuantity" value="1" min="1"
-                            style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center;"
-                            placeholder="Jumlah">
-                        <button id="confirmQuantity"
-                            style="padding: 8px 12px; background-color: #b6895b; color: white; border: none; border-radius: 5px; width: 100%; margin-bottom: 10px;">Konfirmasi</button>
-                        <button onclick="closePopup()"
-                            style="padding: 8px 12px; background-color: #010101; color: white; border: none; border-radius: 5px; width: 100%;">Batal</button>
-                    </div>
-                </div>
+                </form>
             </div>
-            <?php } ?>
-
-        </div>
-
     </section>
-
     <!-- products section end -->
 
 
@@ -603,30 +589,47 @@ if($isLogin){
     <!-- hak akses member(login) start -->
 
     <!-- hak akses member(login) end -->
-    <script>
-    let activeFormId = null;
 
-    function showQuantityPopup(event, itemId) {
+
+    <!-- product start -->
+    <script>
+    function showQuantityPopup(event, button) {
         event.preventDefault();
-        activeFormId = `cartForm-${itemId}`;
+
+        // Ambil data dari tombol yang diklik
+        const itemId = button.getAttribute('data-item-id');
+        const itemName = button.getAttribute('data-item-name');
+        const itemImage = button.getAttribute('data-item-image');
+
+        // Update konten popup
+        document.getElementById('popupImage').src = itemImage;
+        document.querySelector('#quantityPopup h2').textContent = "coffee " + itemName;
+        document.querySelector('[name="item_id"]').value = itemId;
+
+        // Tampilkan popup
         document.getElementById('quantityPopup').style.display = 'block';
-        document.getElementById('popupQuantity').value = 1; // Reset value
     }
 
     function closePopup() {
         document.getElementById('quantityPopup').style.display = 'none';
-        activeFormId = null;
     }
 
-    document.getElementById('confirmQuantity').addEventListener('click', function() {
-        if (activeFormId) {
-            const quantity = document.getElementById('popupQuantity').value;
-            document.querySelector(`#${activeFormId} [name="quantity"]`).value = quantity;
-            document.getElementById(activeFormId).submit();
-            closePopup();
+    // Tombol Konfirmasi
+    document.getElementById('confirmQuantity').addEventListener('click', function(event) {
+        const quantity = document.getElementById('popupQuantity').value;
+
+        // Validasi
+        if (quantity <= 0) {
+            alert('Jumlah item harus lebih dari 0');
+            return;
         }
+
+        document.querySelector('#quantityPopup form').submit();
+        closePopup();
     });
     </script>
+
+    <!-- product end -->
 
     <!-- modal close strt-->
     <script>
@@ -651,10 +654,6 @@ if($isLogin){
     });
     </script>
     <!-- modal end -->
-
-
-
-
 
     <!-- contact form-->
     <script>

@@ -13,14 +13,11 @@ class ControllerCart {
             case 'add':
                 $member_id = $_POST['member_id'];
                 $item_id = $_POST['item_id'];
-                $item_name = $_POST['item_name'];
-                $item_price = $_POST['item_price'];
-                $item_stock = $_POST['item_stock'];
-                $item_star = $_POST['item_star'];
+                
                 $quantity = $_POST['quantity'];
             
 
-                if ($this->modelCart->addCartItem($member_id, $item_id, $item_name, $item_price, $item_stock, $item_star, $quantity)) {
+                if ($this->modelCart->addCartItem($member_id, $item_id,  $quantity)) {
                     $message = "Item berhasil ditambahkan ke keranjang!";
                 } else {
                     $message = "Gagal menambahkan item ke keranjang.";
@@ -34,7 +31,7 @@ class ControllerCart {
                 $cart_id = $_POST['cart_id'];
                 $quantity = $_POST['quantity'];
 
-                if ($this->modelCart->updateCartItemQuantity($cart_id, $quantity)) {
+                if ($this->modelCart->updateQuantity($cart_id, $quantity)) {
                     $message = "Item quantity updated successfully!";
                 } else {
                     $message = "Failed to update item quantity.";
