@@ -1,5 +1,5 @@
 <?php
-require_once "/laragon/www/project_akhir/init.php";
+require_once "/laragon/www/laundry_shoes/init.php";
 
 // Check request method (POST atau GET)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -15,11 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $roleController->handleAction($action);
             break;
 
-        case 'item':
-            require_once 'controller/ControllerItem.php';
-            $itemController = new ControllerItem();
-            $itemController->handleAction($action);
-            break;
+       
 
         case 'user':
             require_once 'controller/ControllerUser.php';
@@ -27,23 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $userController->handleAction($action);
             break;
 
-        case 'member':
-            require_once 'controller/ControllerMember.php';
-            $userController = new ControllerMember();
-            $userController->handleAction($action);
-            break;
+        
+        // case 'sale':
+        //     require_once 'controller/ControllerSale.php';
+        //     $saleController = new ControllerSale();
+        //     $saleController->handleAction($action);
+        //     break;
 
-        case 'sale':
-            require_once 'controller/ControllerSale.php';
-            $saleController = new ControllerSale();
-            $saleController->handleAction($action);
-            break;
-
-        case 'cart':
-            require_once 'controller/ControllerCart.php';
-            $cartController = new ControllerCart();
-            $cartController->handleAction($action);
-            break;
+        // case 'cart':
+        //     require_once 'controller/ControllerCart.php';
+        //     $cartController = new ControllerCart();
+        //     $cartController->handleAction($action);
+        //     break;
             
         case 'login':
                 switch ($action) {
@@ -64,13 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                                 setcookie('member_login', serialize($member), time() + (86400), "/"); // 86400 detik = 1 hari
                             }
 
-                            echo "<script>alert('Login berhasil'); window.location.href='/project_akhir/views/warkop_ui/index.php';</script>";
+                            echo "<script>alert('Login berhasil'); window.location.href='/laundry_shoes/views/web_laundry/index.php';</script>";
 
                             return;
                         }
                     }   
                     
-                    echo "<script>alert('Login gagal'); window.location.href='/project_akhir/views/warkop_ui/login_member.php';</script>";
+                    echo "<script>alert('Login gagal'); window.location.href='/laundry_shoes/views/web_laundry/login_member.php';</script>";
                     break;
                 case 'ghost':
                 $username = $_POST["username_login"];

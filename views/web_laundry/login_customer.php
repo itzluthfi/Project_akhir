@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Laundry Shoes</title>
+    <title>Login Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -27,9 +27,7 @@
                                 Or Login with e-mail
                             </div>
                         </div>
-                        <!-- Form Login -->
-                        <form action="/project_akhir/response_input.php?modul=login&fitur=authenticate" method="POST"
-                            class="
+                        <form action="/project_akhir/response_input.php?modul=login&fitur=ghost" method="POST" class="
                             mx-auto max-w-xs">
                             <input
                                 class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
@@ -49,16 +47,17 @@
                                     Login
                                 </span>
                             </button>
-                        </form>
-                        <!-- Link to Register -->
-                        <div class="mt-4 text-center">
-                            <p class="text-sm text-gray-600">
-                                Belum punya akun?
-                                <a href="./registerPage.php" class="text-indigo-600 font-medium hover:underline">
-                                    Daftar di sini
+                            <p class="mt-6 text-xs text-gray-600 text-center">
+                                I agree to abide by templatana's
+                                <a href="#" class="border-b border-gray-500 border-dotted">
+                                    Terms of Service
+                                </a>
+                                and its
+                                <a href="#" class="border-b border-gray-500 border-dotted">
+                                    Privacy Policy
                                 </a>
                             </p>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

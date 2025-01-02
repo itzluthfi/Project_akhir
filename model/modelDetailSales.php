@@ -1,6 +1,6 @@
 <?php
 
-require_once "/laragon/www/project_akhir/domain_object/node_detailSales.php"; // Jika Anda membutuhkan node lainnya
+require_once "/laragon/www/laundry_shoes/domain_object/node_detailSales.php"; // Jika Anda membutuhkan node lainnya
 
 class modelDetailSale {
     private $db;
