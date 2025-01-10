@@ -56,6 +56,23 @@ class ControllerSale {
                     echo "<script>alert('Data yang dikirim tidak lengkap!'); window.history.back();</script>";
                 }
                 break;
+
+
+            // case 'addMidtransSale':
+            //     // Validasi data POST
+            //     if (isset($_POST['sale_id'])){
+                    
+            //         $sale_id = intval($_POST['sale_id']);
+            //         // Tambahkan penjualan dan detailnya
+            //         $isSuccess = $this->modelSale->addMitransSale($detailSale,  $saleTotalPrice, $saleDate,  $user_id,  $member_id,  $status);
+            
+            //         if ($isSuccess) {
+            //             echo "<script>alert('Penjualan berhasil ditambahkan!'); window.location.href='/project_akhir/views/sale/sale_list.php';</script>";
+            //         } else {
+            //             echo "<script>alert('Gagal menambahkan penjualan!'); window.history.back();</script>";
+            //         }
+            //     }
+                
                 
 
             case 'delete':

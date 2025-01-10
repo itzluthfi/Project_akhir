@@ -52,6 +52,7 @@ class modelCart {
             // Cari data item terkait berdasarkan item_id
             $itemQuery = "SELECT * FROM items WHERE id = " . $row['item_id'];
             $itemResult = $this->db->select($itemQuery);
+            var_dump($itemResult);
 
             if (count($itemResult) > 0) {
                 $item = $itemResult[0];
@@ -106,6 +107,34 @@ class modelCart {
         }
         return null;
     }
+
+    public function increaseQuantity($cartId, $quantity) {
+        foreach ($this->carts as $cart) {
+            if ($cart->id == $cartId) {
+                $newQuantity = $cart->quantity + $quantity;
+                return $this->updateQuantity($cartId, $newQuantity);
+            }
+        }
+        echo "<script>console.log('Cart item with ID $cartId not found for increasing quantity.');</script>";
+        return false;
+    }
+    
+    public function decreaseQuantity($cartId, $quantity) {
+        foreach ($this->carts as $cart) {
+            if ($cart->id == $cartId) {
+                $newQuantity = $cart->quantity - $quantity;
+                // Pastikan quantity tidak menjadi negatif
+                if ($newQuantity < 0) {
+                    echo "<script>console.log('Quantity cannot be negative for cart item with ID $cartId.');</script>";
+                    return false;
+                }
+                return $this->updateQuantity($cartId, $newQuantity);
+            }
+        }
+        echo "<script>console.log('Cart item with ID $cartId not found for decreasing quantity.');</script>";
+        return false;
+    }
+    
 
     public function updateQuantity($cartId, $new_quantity) {
         $query = "UPDATE carts SET quantity = $new_quantity WHERE id = $cartId";

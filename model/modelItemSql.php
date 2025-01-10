@@ -52,9 +52,6 @@ class modelItem {
             $items[] = new Item($row['id'], $row['name'], $row['price'], $row['stock'], $row['star']);
         }
 
-        // Debugging message
-        echo "<script>console.log('Fetched items from database: " . json_encode($items) . "');</script>";
-
         return $items;
     }
 

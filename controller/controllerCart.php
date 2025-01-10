@@ -12,8 +12,7 @@ class ControllerCart {
         switch ($action) {
             case 'add':
                 $member_id = $_POST['member_id'];
-                $item_id = $_POST['item_id'];
-                
+                $item_id = (int)$_POST['item_id'];
                 $quantity = $_POST['quantity'];
             
 
@@ -49,6 +48,8 @@ class ControllerCart {
                 } else {
                     $message = "Item ID not provided.";
                 }
+                echo "<script>alert('$message'); window.location.href='/project_akhir/views/warkop_ui/index.php';</script>";
+
                 break;
 
             case 'checkout':

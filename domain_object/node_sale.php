@@ -5,6 +5,7 @@ class Sale {
     public float $sale_pay;
     public float $sale_change;
     public float $sale_totalPrice;
+    public string $sale_status = "";
     public string $sale_date;
     public int $id_user;
     public int $id_member;
@@ -17,6 +18,7 @@ class Sale {
         float $sale_pay,
         float $sale_change,
         float $sale_totalPrice,
+        string $sale_status,
         string $sale_date,
         int $id_user,
         int $id_member,
@@ -27,6 +29,7 @@ class Sale {
         $this->sale_pay = $sale_pay;
         $this->sale_change = $sale_change;
         $this->sale_totalPrice = $sale_totalPrice;
+        $this->sale_status = $sale_status;
         $this->sale_date = $sale_date;
         $this->id_user = $id_user;
         $this->id_member = $id_member;

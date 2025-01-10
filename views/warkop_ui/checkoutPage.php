@@ -103,29 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
                     <div class="mt-8">
-                        <h3 class="text-base text-gray-800 mb-4">Alamat Pengiriman</h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <input type="text" name="alamat" placeholder="Alamat"
-                                    class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
-                                    required />
-                            </div>
-                            <div>
-                                <input type="text" name="kota" placeholder="Kota"
-                                    class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
-                                    required />
-                            </div>
-                            <div>
-                                <input type="text" name="provinsi" placeholder="Provinsi"
-                                    class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
-                                    required />
-                            </div>
-                            <div>
-                                <input type="text" name="kode_pos" placeholder="Kode Pos"
-                                    class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
-                                    required />
-                            </div>
-                        </div>
+
                         <div class="flex gap-4 max-md:flex-col mt-8">
                             <button type="button"
                                 class="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Batal</button>
@@ -147,10 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const data = new URLSearchParams(formData);
         const ObjData = Object.fromEntries(data);
 
-        // Tambahkan dataKeranjang ke ObjData
-        ObjData.cart_data = <?= json_encode($dataKeranjang); ?>;
+        //entry data
+        ObjData.member_id = "<?= htmlspecialchars($idAnggota) ?>"; // ID Anggota
+        ObjData.cart_data = <?= json_encode($dataKeranjang) ?>; // Data keranjang
         ObjData.total_price = <?= $totalHarga ?>; // Total harga keseluruhan
-        ObjData.member_id = <?= $idAnggota ?>; // ID Anggota
+
 
         try {
             console.log(ObjData);
@@ -164,8 +143,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
 
             const token = await response.text();
+            // console.log(response);
             console.log(token);
+            if (!token) {
+                alert('Token tidak ditemukan!');
+                return;
+            }
             snap.pay(token);
+
         } catch (error) {
             alert('Kesalahan terjadi: ' + error.message);
         }

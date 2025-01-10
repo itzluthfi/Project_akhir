@@ -305,12 +305,16 @@ if($isLogin){
                             <button onclick="increaseQuantity(<?= $cartItem->id ?>)">+</button>
                         </div>
                     </div>
-                    <button class="remove-item" onclick="removeItem(<?= $cartItem->id ?>)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" stroke-width="2" class="feather feather-trash-2">
-                            <path d="M3 6h18M19 6l-1 14H6L5 6m2 0h12M10 11v6m4-6v6"></path>
-                        </svg>
-                    </button>
+                    <form action="../../response_input.php?modul=cart&fitur=remove&id=<?= $cartItem->id ?>"
+                        method="POST">
+                        <button class="remove-item" type="submit">
+                            <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+                                class="feather feather-trash-2">
+                                <path d="M3 6h18M19 6l-1 14H6L5 6m2 0h12M10 11v6m4-6v6"></path>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
                 <?php } 
     } else { ?>
@@ -359,7 +363,7 @@ if($isLogin){
             <a href="#" class="cta">beli sekarang</a>
         </main>
     </section>
-    <?= var_dump($carts); ?>
+
 
     <!-- hero section end -->
 
@@ -398,7 +402,6 @@ if($isLogin){
         <h2><span>Menu</span> Kami</h2>
         <p>Nikmati berbagai pilihan kopi dan camilan favorit yang kami sajikan dengan cita rasa khas.</p>
 
-        <!-- Row Wrapper Outside the PHP Loop -->
         <div class="row">
             <?php foreach ($allMenu as $menu) {  ?>
             <div class="menu-card">
@@ -432,11 +435,15 @@ if($isLogin){
                         <i data-feather="shopping-cart"></i>
                     </a>
 
-                    <a href="#" class="item-detail-button" data-star="<?= $menu->item_star ?>" <?php if (!$isLogin): ?>
-                        onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;"
-                        <?php endif; ?>>
+                    <a href="#" class="item-detail-button" data-item-id="<?= $menu->item_id ?>"
+                        data-item-name="<?= htmlspecialchars($menu->item_name) ?>"
+                        data-item-star="<?= $menu->item_star ?>" data-item-price="<?= $menu->item_price ?>"
+                        data-item-image="img/menu/<?= $menu->item_name ?>.jpg" <?php if (!$isLogin): ?>
+                        onclick="alert('Login terlebih dahulu untuk mengakses fitur ini'); return false;" <?php else: ?>
+                        onclick="showDetailPopup(event, this); return false;" <?php endif; ?>>
                         <i data-feather="eye"></i>
                     </a>
+
                 </div>
                 <div class="product-image">
                     <img src="img/menu/<?= $menu->item_name ?>.jpg" alt="<?= $menu->item_name ?>">
@@ -456,8 +463,50 @@ if($isLogin){
             </div>
             <?php } ?>
 
+            <!-- modal box item details start (eye icon) -->
 
-            <!-- Popup untuk jumlah item -->
+            <div class="modal" id="item-detail-modal" style="display: none;">
+                <div class="modal-container"
+                    style="position: relative; max-width: 800px; margin: 50px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+                    <a href="#" class="close-icon"
+                        style="position: absolute; top: 15px; right: 15px; text-decoration: none; font-size: 24px; color: #333; z-index: 10;">
+                        <i data-feather="x"></i>
+                    </a>
+                    <div class="modal-content" style="display: flex; flex-direction: row; gap: 20px; padding: 20px;">
+                        <!-- Gambar Produk -->
+                        <div class="modal-image"
+                            style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                            <img src="img/products/1.jpg" alt="<?= htmlspecialchars($menu->item_name) ?>"
+                                style="max-width: 100%; height: auto; border-radius: 8px;">
+                        </div>
+                        <!-- Konten Produk -->
+                        <div class="product-content"
+                            style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center; gap: 15px;">
+                            <h3 style="font-size: 1.8rem; color: #333;"><?= htmlspecialchars($menu->item_name) ?></h3>
+
+                            <div class="product-stars" style="display: flex; gap: 5px;">
+                                <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                <i data-feather="star" <?= ($i <= $menu->item_star) ? 'class="star-full"' : '' ?>></i>
+                                <?php } ?>
+                            </div>
+                            <div class="product-price" style="font-size: 1.4rem; font-weight: bold; color: #333;">
+                                RP. <?= ceil($menu->item_price * 0.8) ?>
+                                <span
+                                    style="text-decoration: line-through; font-weight: lighter; font-size: 1rem; margin-left: 5px; color: #999;">RP.
+                                    <?= $menu->item_price ?></span>
+                            </div>
+                            <a href="#"
+                                style="display: inline-block; padding: 10px 20px; background: #b6895b; color: white; font-size: 1rem; font-weight: bold; border-radius: 5px; text-decoration: none;">
+                                <i data-feather="shopping-cart" style="margin-right: 5px;"></i> Beli Sekarang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal box item details(eye icon) end -->
+
+
+            <!-- modal box cart(cart icon)  START-->
             <div id="quantityPopup"
                 style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 600px;">
                 <button onclick="closePopup()"
@@ -486,8 +535,10 @@ if($isLogin){
                     </div>
                 </form>
             </div>
+            <!-- modal box cart(cart icon)  END-->
+
     </section>
-    <!-- products section end -->
+    <!-- products section  end -->
 
 
 
@@ -515,8 +566,8 @@ if($isLogin){
                     <input type="email" id="email" placeholder="email" required>
                 </div>
                 <div class="input-group">
-                    <i data-feather="phone"></i>
-                    <input type="text" id="phone" placeholder="no hp" required>
+                    <i data-feather="message-circle"></i>
+                    <input type="textarea" id="pesan" placeholder="masukkan pesan" required>
                 </div>
                 <button type="submit" class="btn">kirim pesan</button>
             </form>
@@ -553,35 +604,7 @@ if($isLogin){
     <!-- footer end -->
 
 
-    <!-- modal box item details start -->
-    <div class="modal" id="item-detail-modal">
-        <div class="modal-container">
-            <a href="#" class="close-icon"><i data-feather="x"></i></a>
-            <div class="modal-content">
-                <img src="img/products/1.jpg" alt="<?= htmlspecialchars($menu->item_name) ?>">
-                <div class="product-content">
-                    <h3><?= htmlspecialchars($menu->item_name) ?></h3>
-                    <!-- Deskripsi manual -->
-                    <p>Ini adalah deskripsi produk manual yang bisa diubah sesuai keinginan. Misalnya, deskripsi kopi
-                        yang sangat enak dan nikmat.</p>
-                    <div class="product-stars">
-                        <?php for ($i = 1; $i <= 5; $i++) { ?>
-                        <i data-feather="star" <?= ($i <= $menu->item_star) ? 'class="star-full"' : '' ?>></i>
-                        <?php } ?>
-                    </div>
 
-                    <div class="product-price" style="font-size: 1.3rem;font-weight: bold;">
-                        RP. <?= ceil($menu->item_price * 0.8) ?>
-                        <span style="text-decoration: line-through;
-                        font-weight: lighter;font-size: 1rem;">RP. <?= $menu->item_price ?></span>
-                    </div>
-
-                    <a href="#"><i data-feather="shopping-cart rounded"></i> <span>add to cart</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modal box item details end -->
 
 
 
@@ -634,23 +657,77 @@ if($isLogin){
     <!-- modal close strt-->
     <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const itemdetailmodal = document.querySelector("#item-detail-modal");
+        const itemDetailModal = document.querySelector("#item-detail-modal");
         const closeIcon = document.querySelector(".modal-container .close-icon");
 
         // Tutup modal ketika tombol close-icon diklik
         closeIcon.onclick = (e) => {
             e.preventDefault();
-            itemdetailmodal.style.display = "none";
-            console.log("close");
+            itemDetailModal.style.display = "none";
+            console.log("Modal ditutup melalui ikon close");
         };
 
         // Tutup modal ketika klik di luar modal
         window.onclick = (e) => {
-            if (e.target === itemdetailmodal) {
-                itemdetailmodal.style.display = "none";
-                console.log("Modal ditutup");
+            if (e.target === itemDetailModal) {
+                itemDetailModal.style.display = "none";
+                console.log("Modal ditutup melalui klik luar");
             }
         };
+
+        // Tambahkan event listener untuk semua tombol "eye"
+        document.querySelectorAll(".item-detail-button").forEach((button) => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Ambil data dari tombol yang diklik
+                const itemId = button.getAttribute("data-item-id");
+                const itemName = button.getAttribute("data-item-name");
+                const itemStar = button.getAttribute("data-item-star");
+                const itemPrice = button.getAttribute("data-item-price");
+                const itemImage = button.getAttribute("data-item-image");
+
+                // Update konten modal
+                const modalImage = itemDetailModal.querySelector("img");
+                const modalTitle = itemDetailModal.querySelector("h3");
+                const modalStars = itemDetailModal.querySelector(".product-stars");
+                const modalPrice = itemDetailModal.querySelector(".product-price");
+
+                modalImage.src = itemImage;
+                modalTitle.textContent = itemName;
+
+                // Update bintang
+                modalStars.innerHTML = ""; // Reset bintang
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("i");
+                    star.setAttribute("data-feather", "star");
+                    if (i <= itemStar) {
+                        star.classList.add("star-full");
+                    }
+                    modalStars.appendChild(star);
+                }
+
+                // Update harga
+                modalPrice.innerHTML = `
+                RP. ${Math.ceil(itemPrice * 0.8)}
+                <span style="text-decoration: line-through; font-weight: lighter; font-size: 1rem;">
+                    RP. ${itemPrice}
+                </span>
+            `;
+
+                // Render ulang ikon feather
+                feather.replace();
+
+                // Tampilkan modal
+                itemDetailModal.style.display = "block";
+                console.log("Modal dibuka untuk:", {
+                    itemId,
+                    itemName,
+                    itemStar,
+                    itemPrice
+                });
+            });
+        });
     });
     </script>
     <!-- modal end -->
@@ -663,13 +740,13 @@ if($isLogin){
         // Mengambil nilai dari input
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
+        const pesan = document.getElementById('message').value;
 
         // ID nomor WhatsApp tujuan
         const phoneNumber = '62895806705493'; // Ganti dengan nomor WhatsApp tujuan
 
         // Format pesan yang akan dikirim
-        const message = `Halo, saya ${name}.%0AEmail: ${email}%0ANo HP: ${phone}%0ASaya ingin menghubungi Anda.`;
+        const message = `Halo, saya ${name}.%0AEmail: ${email}%0A pesan: ${pesan}%0A`;
 
         // Mengarahkan ke WhatsApp
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;

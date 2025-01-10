@@ -12,7 +12,7 @@ class ModelSaleSql {
         $this->db = new Database('localhost', 'root', '', 'poswarkop');
     }
 
-    public function addSale($detailSale, int $salePay, int $saleChange, int $saleTotalPrice, $saleDate, int $user_id, int $member_id) {
+    public function addSale($detailSale, int $salePay, int $saleChange, int $saleTotalPrice, $saleDate, int $user_id,  $member_id) {
         $salePay = (int)$salePay;
         $saleChange = (int)$saleChange;
         $saleTotalPrice = (int)$saleTotalPrice;
@@ -55,27 +55,56 @@ class ModelSaleSql {
                 echo "<script>console.log('detailSale is empty or not an array');</script>";
             }
     
-            // Display sales data for debugging
-            // $salesData = [
-            //     'sale_id' => $saleId,
-            //     'user_id' => $user_id,
-            //     'member_id' => $member_id,
-            //     'pay' => $salePay,
-            //     'change' => $saleChange,
-            //     'total_price' => $saleTotalPrice,
-            //     'date' => $saleDate,
-            // ];
-    
-            // echo "<h1>Penjualan Berhasil!</h1>";
-            // echo "<h2>Data Sales:</h2>";
-            // echo "<pre>" . print_r($salesData, true) . "</pre>";
-            // echo "<h2>Data Detail Sales:</h2>";
-            // echo "<pre>" . print_r($detailsalesData, true) . "</pre>";
+
     
             return true;
         } catch (Exception $e) {
             $errorMessage = addslashes($e->getMessage());
             echo "<script>console.log('Error adding sale: $errorMessage');</script>";
+            return false;
+        }
+    }
+    
+
+    public function addMitransSale($detailSale, int $saleTotalPrice, $saleDate, int $user_id, int $member_id, string $status) {
+        $saleTotalPrice = (int)$saleTotalPrice;
+        $saleDate = addslashes($saleDate); // Escape string input
+        $user_id = (int)$user_id;
+        $member_id = (int)$member_id;
+        $status = addslashes($status); // Escape string input for status
+    
+        $query = "INSERT INTO sales_midtrans (user_id, member_id, total_price, status, date) 
+                  VALUES ($user_id, $member_id, $saleTotalPrice, '$status', '$saleDate')";
+    
+        try {
+            $this->db->execute($query);
+            $saleId = $this->db->conn->insert_id;
+
+            $detailsalesData = [];
+            if (!empty($detailSale)) {
+                foreach ($detailSale as $index => $item) {
+                    // Validate and process each item
+                    $item_id = isset($item['item_id']) && $item['item_id'] !== '' ? (int)$item['item_id'] : null;
+                    $quantity = isset($item['item_qty']) && $item['item_qty'] !== '' ? (int)$item['item_qty'] : null;
+    
+                    if ($item_id !== null && $quantity !== null) {
+                        $detailQuery = "INSERT INTO detailsales (id, sale_id, item_id, quantity) 
+                                        VALUES (NULL, $saleId, $item_id, $quantity)";
+                        $this->db->execute($detailQuery);
+    
+                        $detailsalesData[] = [
+                            'sale_id' => $saleId,
+                            'item_id' => $item_id,
+                            'quantity' => $quantity,
+                        ];
+                    }
+                }
+            }
+    
+            return $saleId;
+        } catch (Exception $e) {
+            $errorMessage = addslashes($e->getMessage());
+            echo "<script>console.log('Error adding Midtrans sale: $errorMessage');</script>";
             return false;
         }
     }
@@ -86,15 +115,28 @@ class ModelSaleSql {
     
     
 
-    public function getAllSales() {
-        $query = "SELECT * FROM sales";
+    public function getAllSalesMidtrans() {
+        $query = "SELECT * FROM sales_midtrans";
         $result = $this->db->select($query);
-
+        // $sale_status = "settlement";
         $sales = [];
         foreach ($result as $row) {
             $saleId = $row['id'];
             $details = $this->getDetailsBySaleId($saleId);
-            $sales[] = new Sale($saleId, $row['pay'], $row['change'], $row['total_price'], $row['date'], $row['user_id'], $row['member_id'], $details);
+            $sales[] = new Sale($saleId, 0, 0, $row['total_price'],$row['status'], $row['date'], $row['user_id'], $row['member_id'], $details);
+        }
+        return $sales;
+    }
+
+    public function getAllSales() {
+        $query = "SELECT * FROM sales";
+        $result = $this->db->select($query);
+        $sale_status = "settlement";
+        $sales = [];
+        foreach ($result as $row) {
+            $saleId = $row['id'];
+            $details = $this->getDetailsBySaleId($saleId);
+            $sales[] = new Sale($saleId, $row['pay'], $row['change'], $row['total_price'],$sale_status, $row['date'], $row['user_id'], $row['member_id'], $details);
         }
         return $sales;
     }
@@ -114,11 +156,12 @@ class ModelSaleSql {
         $saleId = (int)$saleId;
         $query = "SELECT * FROM sales WHERE id = $saleId";
         $result = $this->db->select($query);
+        $sale_status = "settlement";
 
         if (count($result) > 0) {
             $row = $result[0];
             $details = $this->getDetailsBySaleId($saleId);
-            return new Sale($row['id'], $row['pay'], $row['change'], $row['total_price'], $row['date'], $row['user_id'], $row['member_id'], $details);
+        return new Sale($row['id'], $row['pay'], $row['change'], $row['total_price'],$sale_status, $row['date'], $row['user_id'], $row['member_id'], $details);
         }
 
         return null;
