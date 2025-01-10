@@ -1,11 +1,11 @@
 <?php 
-//require_once "/laragon/www/project_akhir/model/modelRole.php"; 
-require_once "/laragon/www/project_akhir/init.php";   
-include "/laragon/www/project_akhir/auth_check.php";    
+//require_once "/laragon/www/laundry_shoes/model/modelRole.php"; 
+require_once "/laragon/www/laundry_shoes/init.php";   
+include "/laragon/www/laundry_shoes/auth_check.php";    
 $obj_role = $modelRole->getAllRole(); 
-$obj_member = $modelMember->getAllMembers(); 
-$obj_item = $modelItem->getAllItem(); 
-$obj_sale = $modelSale->getAllSales(); 
+// $obj_member = $modelMember->getAllMembers(); 
+// $obj_item = $modelItem->getAllItem(); 
+// $obj_sale = $modelSale->getAllSales(); 
 
 
 // Ambil tanggal dan total penjualan dari setiap objek penjualan
@@ -69,13 +69,13 @@ $sales_totals_json = json_encode($sales_totals);
 <body class="bg-gray-100 font-sans leading-normal tracking-normal overflow-hidden">
 
     <!-- Navbar -->
-    <?php include_once '/laragon/www/project_akhir/views/includes/navbar.php'; ?>
+    <?php include_once '/laragon/www/laundry_shoes/views/includes/navbar.php'; ?>
 
     <!-- Main container -->
     <div class="flex h-screen">
         <!-- Sidebar -->
 
-        <?php include_once '/laragon/www/project_akhir/views/includes/sidebar.php'; ?>
+        <?php include_once '/laragon/www/laundry_shoes/views/includes/sidebar.php'; ?>
 
 
 
@@ -346,7 +346,7 @@ $sales_totals_json = json_encode($sales_totals);
     // function confirmDelete(saleId) {
     //     if (confirm('Apakah Anda yakin ingin menghapus role ini?')) {
     //         // Redirect ke halaman delete dengan fitur=delete
-    //         window.location.href = "/project_akhir/response_input.php?modul=sale&fitur=delete&id=" + saleId;
+    //         window.location.href = "/laundry_shoes/response_input.php?modul=sale&fitur=delete&id=" + saleId;
     //     } else {
     //         // Batalkan penghapusan
     //         alert("gagal menghapus data");

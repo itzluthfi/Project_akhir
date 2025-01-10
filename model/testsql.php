@@ -1,7 +1,7 @@
 <?php
 // Pastikan semua file terkait model dan koneksi database sudah di-include
-include_once "/laragon/www/project_akhir/model/dbConnect.php";
-include_once "/laragon/www/project_akhir/model/modelMemberSql.php";
+include_once "/laragon/www/laundry_shoes/model/dbConnect.php";
+include_once "/laragon/www/laundry_shoes/model/modelMemberSql.php";
 
 // Inisialisasi model member
 $modelMember = new modelMember();

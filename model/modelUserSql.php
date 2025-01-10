@@ -1,7 +1,7 @@
 <?php
 
-require_once "/laragon/www/project_akhir/domain_object/node_user.php";  // Jika Anda masih ingin menggunakan node
-include_once "/laragon/www/project_akhir/model/dbConnect.php";
+require_once "/laragon/www/laundry_shoes/domain_object/node_user.php";  
+include_once "/laragon/www/laundry_shoes/model/dbConnect.php";
 
 
 class modelUser {
@@ -9,7 +9,7 @@ class modelUser {
 
     public function __construct() {
         // Inisialisasi koneksi database
-        $this->db = new Database('localhost', 'root', '', 'poswarkop');
+        $this->db = new Database('localhost', 'root', '', 'laundrysepatu');
         // Cek dan inisialisasi user default jika belum ada
         $this->initializeDefaultUser();
     }
@@ -17,7 +17,7 @@ class modelUser {
     public function initializeDefaultUser() {
         // Cek apakah ada user yang terdaftar di database
         if (empty($this->getAllUser())) {
-            $this->addUser("luthfi", "luthfi123", 1);
+            $this->addUser("maul", "maul123", 1);
             $this->addUser("habib", "habib123", 3);
             $this->addUser("adam", "adam123", 4);
         }

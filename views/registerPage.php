@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Laundry Shoes</title>
+    <title>Registrasi - Laundry Shoes</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -24,19 +24,23 @@
                         <div class="my-12 border-b text-center">
                             <div
                                 class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                                Or Login with e-mail
+                                Register Your Account
                             </div>
                         </div>
-                        <!-- Form Login -->
-                        <form action="/project_akhir/response_input.php?modul=login&fitur=authenticate" method="POST"
-                            class="
-                            mx-auto max-w-xs">
-                            <input
-                                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                type="text" placeholder="Masukkan Username..." name="username_login" required />
+                        <!-- Form Register -->
+                        <form action="/project_akhir/response_input.php?modul=register&fitur=create" method="POST"
+                            class="mx-auto max-w-xs">
+
                             <input
                                 class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                                type="password" placeholder="Masukkan Password..." name="password_login" required />
+                                type="text" placeholder="Masukkan Username..." name="username_register" required />
+
+                            <input
+                                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                type="password" placeholder="Masukkan Password..." name="password_register" required />
+                            <!-- <input
+                                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                type="password" placeholder="Konfirmasi Password..." name="confirm_password" required /> -->
                             <button
                                 class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                 <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
@@ -46,16 +50,16 @@
                                     <path d="M20 8v6M23 11h-6" />
                                 </svg>
                                 <span class="ml-3">
-                                    Login
+                                    Daftar
                                 </span>
                             </button>
                         </form>
-                        <!-- Link to Register -->
+                        <!-- Link to Login -->
                         <div class="mt-4 text-center">
                             <p class="text-sm text-gray-600">
-                                Belum punya akun?
-                                <a href="./registerPage.php" class="text-indigo-600 font-medium hover:underline">
-                                    Daftar di sini
+                                Sudah punya akun?
+                                <a href="./loginPage.php" class="text-indigo-600 font-medium hover:underline">
+                                    Login di sini
                                 </a>
                             </p>
                         </div>

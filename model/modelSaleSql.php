@@ -1,15 +1,15 @@
 <?php
 
-require_once "/laragon/www/project_akhir/model/dbConnect.php";
-require_once "/laragon/www/project_akhir/domain_object/node_sale.php";
-require_once "/laragon/www/project_akhir/domain_object/node_detailSale.php";
+require_once "/laragon/www/laundry_shoes/model/dbConnect.php";
+require_once "/laragon/www/laundry_shoes/domain_object/node_sale.php";
+require_once "/laragon/www/laundry_shoes/domain_object/node_detailSale.php";
 
 class ModelSaleSql {
     private $db;
 
     public function __construct() {
         // Inisialisasi koneksi database
-        $this->db = new Database('localhost', 'root', '', 'poswarkop');
+        $this->db = new Database('localhost', 'root', '', 'laundrysepatu');
     }
 
     public function addSale($detailSale, int $salePay, int $saleChange, int $saleTotalPrice, $saleDate, int $user_id,  $member_id) {
